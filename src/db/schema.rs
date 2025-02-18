@@ -1,5 +1,5 @@
-use sqlx::postgres::PgPool;
 use anyhow::Result;
+use sqlx::postgres::PgPool;
 
 pub async fn init_db(pool: &PgPool) -> Result<()> {
     sqlx::query(
@@ -71,10 +71,10 @@ pub async fn init_db(pool: &PgPool) -> Result<()> {
 
         CREATE INDEX IF NOT EXISTS idx_transactions_user_type 
         ON transactions(user_id, transaction_type);
-        "#
+        "#,
     )
     .execute(pool)
     .await?;
 
     Ok(())
-} 
+}

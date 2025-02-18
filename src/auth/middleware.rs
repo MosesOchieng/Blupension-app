@@ -45,4 +45,4 @@ where
         // Implement your auth logic here
         Box::pin(self.service.call(req))
     }
-} 
+}
