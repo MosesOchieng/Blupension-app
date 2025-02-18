@@ -1,0 +1,25 @@
+src/
+├── bin/                    # Binary executables
+│   └── api_server.rs      # Main API server
+├── contracts/             # Soroban smart contracts
+│   ├── lib.rs
+│   └── pension_fund.rs
+├── api/                   # API endpoints
+│   ├── mod.rs
+│   ├── routes.rs
+│   ├── handlers/
+│   │   ├── mod.rs
+│   │   ├── user.rs
+│   │   └── fund.rs
+├── db/                    # Database layer
+│   ├── mod.rs
+│   ├── schema.rs
+│   └── models/
+│       ├── mod.rs
+│       ├── user.rs
+│       └── fund.rs
+├── services/             # Business logic
+│   ├── mod.rs
+│   ├── user_service.rs
+│   └── fund_service.rs
+└── lib.rs               # Library root 

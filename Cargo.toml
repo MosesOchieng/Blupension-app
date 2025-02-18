@@ -1,0 +1,105 @@
+[package]
+name = "blupension"
+version = "0.1.0"
+edition = "2021"
+default-run = "blupension"
+
+[[bin]]
+name = "blupension"
+path = "src/bin/api_server.rs"
+
+[lib]
+name = "blupension"
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# Stellar Soroban SDK
+soroban-sdk = "22.0.7"
+
+# Keep only the essential dependencies for now
+serde = { version = "1.0.197", features = ["derive"] }
+serde_json = "1.0.114"
+
+# Async Runtime
+tokio = { version = "1.36.0", features = ["full"] }
+
+# Web Framework for API
+axum = { version = "0.8.1" }
+axum-extra = { version = "0.9.2", features = ["typed-header"] }
+tower-http = { version = "0.6.2", features = ["cors"] }
+
+# Database
+sqlx = { version = "0.8.3", features = ["runtime-tokio-rustls", "postgres", "uuid", "time", "json"] }
+
+# Error Handling
+thiserror = "1.0.57"
+anyhow = "1.0.80"
+
+# Logging and Metrics
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+
+# Cryptography and Security
+rand = "0.9.0"
+sha2 = "0.10"
+hex = "0.4"
+
+# Configuration
+config = "0.15.8"
+dotenv = "0.15"
+
+# Time handling
+chrono = { version = "0.4", features = ["serde"] }
+
+# UUID generation
+uuid = { version = "1.7.0", features = ["v4", "serde"] }
+
+# Decimal handling
+rust_decimal = { version = "1.32", features = ["serde"] }
+
+# Password hashing
+argon2 = "0.5.3"
+
+# Add under [dependencies]
+jsonwebtoken = "9.3.0"
+time = { version = "0.3.34", features = ["serde"] }
+
+# AI and Machine Learning
+tch = "0.19.0"  # PyTorch bindings for Rust
+ndarray = { version = "0.16.1", features = ["serde"] }
+csv = "1.2"
+
+# M-Pesa Integration
+reqwest = { version = "0.12.12", features = ["json"] }
+base64 = "0.22.1"
+
+# New dependencies
+actix-web = "4.4"
+env_logger = "0.10"
+
+# Blockchain Integration
+stellar_sdk = "0.1.4"
+ethers = "2.0.13"
+
+# Added from the code block
+actix-cors = "0.7.0"
+
+# Added from the code block
+validator = { version = "0.16", features = ["derive"] }
+
+# Additional required dependencies
+futures = "0.3"
+once_cell = "1.8"
+prometheus = "0.13"
+http = "0.2"
+
+[dev-dependencies]
+soroban-sdk = { version = "22.0.7", features = ["testutils"] }
+tokio-test = "0.4.3"
+mock-it = "0.9.0"
+
+[features]
+testutils = ["soroban-sdk/testutils"]
+default = ["std"]
+std = []
