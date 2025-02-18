@@ -1,8 +1,8 @@
 use crate::error::Result;
 use crate::models::{Investment, Portfolio, RiskProfile};
-use sqlx::{PgPool, Transaction, Postgres};
-use uuid::Uuid;
 use rust_decimal::Decimal;
+use sqlx::{PgPool, Postgres, Transaction};
+use uuid::Uuid;
 
 #[derive(Debug)]
 pub struct Portfolio {

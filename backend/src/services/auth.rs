@@ -1,15 +1,15 @@
-use sqlx::PgPool;
-use uuid::Uuid;
 use crate::error::{Error, Result};
+use crate::models::auth::{AuthResponse, UserResponse};
+use crate::models::User;
 use argon2::{
     password_hash::{rand_core::OsRng, PasswordHash, PasswordHasher, PasswordVerifier, SaltString},
     Argon2,
 };
-use rand::Rng;
-use jsonwebtoken::{encode, EncodingKey, Header, Validation};
 use chrono::{Duration, Utc};
-use crate::models::User;
-use crate::models::auth::{AuthResponse, UserResponse};
+use jsonwebtoken::{encode, EncodingKey, Header, Validation};
+use rand::Rng;
+use sqlx::PgPool;
+use uuid::Uuid;
 
 pub struct AuthService {
     pool: PgPool,
@@ -41,8 +41,8 @@ impl AuthService {
         .await?
         .ok_or(Error::InvalidCredentials)?;
 
-        let parsed_hash = PasswordHash::new(&user.password_hash)
-            .map_err(|_| Error::InvalidCredentials)?;
+        let parsed_hash =
+            PasswordHash::new(&user.password_hash).map_err(|_| Error::InvalidCredentials)?;
 
         if !Argon2::default()
             .verify_password(password.as_bytes(), &parsed_hash)
@@ -84,12 +84,13 @@ impl AuthService {
             sub: user_id,
             exp: (Utc::now() + Duration::hours(24)).timestamp() as usize,
         };
-        
+
         encode(
             &Header::default(),
             &claims,
-            &EncodingKey::from_secret(self.jwt_secret.as_bytes())
-        ).map_err(Error::JWT)
+            &EncodingKey::from_secret(self.jwt_secret.as_bytes()),
+        )
+        .map_err(Error::JWT)
     }
 
     async fn store_refresh_token(&self, user_id: &Uuid, refresh_token: &str) -> Result<()> {
@@ -109,7 +110,7 @@ impl AuthService {
 
     pub async fn refresh_token(&self, refresh_token: &str) -> Result<TokenPair> {
         let claims = self.verify_refresh_token(refresh_token)?;
-        
+
         let token_exists = sqlx::query!(
             "SELECT EXISTS(SELECT 1 FROM refresh_tokens WHERE token = $1 AND is_revoked = false)",
             refresh_token
@@ -124,7 +125,7 @@ impl AuthService {
         }
 
         let token_pair = self.generate_token_pair(claims.sub)?;
-        
+
         // Revoke old refresh token and store new one
         sqlx::query!(
             "UPDATE refresh_tokens SET is_revoked = true WHERE token = $1",
@@ -133,7 +134,8 @@ impl AuthService {
         .execute(&self.pool)
         .await?;
 
-        self.store_refresh_token(&claims.sub, &token_pair.refresh_token).await?;
+        self.store_refresh_token(&claims.sub, &token_pair.refresh_token)
+            .await?;
 
         Ok(token_pair)
     }

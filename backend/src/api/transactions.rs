@@ -1,12 +1,12 @@
+use crate::error::Error;
+use crate::error::Result;
+use crate::middleware::auth::Claims;
+use crate::models::Transaction;
+use crate::services::TransactionService;
 use actix_web::{web, HttpResponse, Responder};
 use serde::{Deserialize, Serialize};
-use validator::Validate;
 use uuid::Uuid;
-use crate::middleware::auth::Claims;
-use crate::services::TransactionService;
-use crate::error::Error;
-use crate::models::Transaction;
-use crate::error::Result;
+use validator::Validate;
 
 #[derive(Debug, Deserialize, Validate)]
 pub struct CreateDepositRequest {
@@ -40,7 +40,10 @@ pub async fn create_deposit(
     claims: web::ReqData<Claims>,
     req: web::Json<CreateDepositRequest>,
 ) -> impl Responder {
-    match transaction_service.create_deposit(claims.sub, req.amount).await {
+    match transaction_service
+        .create_deposit(claims.sub, req.amount)
+        .await
+    {
         Ok(transaction) => HttpResponse::Ok().json(transaction),
         Err(e) => HttpResponse::InternalServerError().json(e.to_string()),
     }
@@ -72,7 +75,10 @@ pub async fn get_transactions(
     let limit = query.limit.unwrap_or(10);
     let offset = query.offset.unwrap_or(0);
 
-    match transaction_service.get_transactions(claims.sub, limit, offset).await {
+    match transaction_service
+        .get_transactions(claims.sub, limit, offset)
+        .await
+    {
         Ok(transactions) => HttpResponse::Ok().json(transactions),
         Err(e) => HttpResponse::InternalServerError().json(e.to_string()),
     }
@@ -96,7 +102,7 @@ pub async fn create_transaction(
     let transaction = service
         .create_transaction(user_id.into_inner(), req.amount)
         .await?;
-    
+
     Ok(HttpResponse::Ok().json(transaction))
 }
 

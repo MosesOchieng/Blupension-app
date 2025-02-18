@@ -1,7 +1,7 @@
-use sqlx::PgPool;
-use uuid::Uuid;
 use crate::error::Result;
 use crate::models::{Transaction, WithdrawalLimits};
+use sqlx::PgPool;
+use uuid::Uuid;
 
 pub struct TransactionService {
     pool: PgPool,
