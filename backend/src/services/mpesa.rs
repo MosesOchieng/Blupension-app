@@ -128,3 +128,16 @@ impl MpesaService {
         Ok(response.json().await?)
     }
 }
+
+use cached::proc_macro::cached;
+use cached::TimedCache;
+
+#[cached(
+    type = "TimedCache<String, String>",
+    create = "{ TimedCache::with_lifespan(3600) }",
+    result = true
+)]
+async fn get_cached_access_token(&self) -> Result<String> {
+    // Existing token fetch logic
+    self.get_access_token().await
+}
