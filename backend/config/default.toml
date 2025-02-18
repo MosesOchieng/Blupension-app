@@ -1,0 +1,21 @@
+[server]
+host = "127.0.0.1"
+port = 8080
+
+[database]
+url = "postgres://postgres:postgres@localhost/blupension"
+max_connections = 5
+
+[blockchain]
+url = "http://localhost:8545"
+contract_address = ""
+private_key = ""
+
+[mpesa]
+consumer_key = ""
+consumer_secret = ""
+passkey = ""
+business_shortcode = ""
+callback_url = "http://localhost:8080/api/mpesa/callback"
+
+jwt_secret = "your-secret-key-change-in-production" 

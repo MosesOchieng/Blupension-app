@@ -1,0 +1,8 @@
+[server]
+port = 8080
+
+[database]
+url = "postgres://postgres:postgres@localhost/blupension_dev"
+
+[blockchain]
+url = "http://localhost:8545" 

@@ -1,0 +1,24 @@
+# Rust specific
+/target/
+Cargo.lock
+**/*.rs.bk
+
+# Environment
+.env
+.env.*
+
+# Debug files
+debug/
+release/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+
+# Generated documentation
+/doc/
+/docs/ 
