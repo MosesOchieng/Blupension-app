@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blupension Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .debug-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .warning { background-color: #fff3cd; color: #856404; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Blupension Debug Page</h1>
+    
+    <div class="debug-section">
+        <h2>Server Health Check</h2>
+        <button onclick="checkHealth()">Check Server Health</button>
+        <div id="healthResult"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2>Database Connection Test</h2>
+        <button onclick="testDatabase()">Test Database</button>
+        <div id="databaseResult"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2>Login API Test</h2>
+        <button onclick="testLoginAPI()">Test Login Endpoint</button>
+        <div id="loginResult"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2>Environment Info</h2>
+        <div id="envInfo"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2>Browser Info</h2>
+        <div id="browserInfo"></div>
+    </div>
+
+    <script>
+        // Display environment info
+        function showEnvironmentInfo() {
+            const envInfo = document.getElementById('envInfo');
+            envInfo.innerHTML = `
+                <div class="status success">
+                    <strong>User Agent:</strong> ${navigator.userAgent}
+                </div>
+                <div class="status success">
+                    <strong>Current URL:</strong> ${window.location.href}
+                </div>
+                <div class="status success">
+                    <strong>Protocol:</strong> ${window.location.protocol}
+                </div>
+                <div class="status success">
+                    <strong>Host:</strong> ${window.location.host}
+                </div>
+            `;
+        }
+
+        // Display browser info
+        function showBrowserInfo() {
+            const browserInfo = document.getElementById('browserInfo');
+            browserInfo.innerHTML = `
+                <div class="status success">
+                    <strong>Cookies Enabled:</strong> ${navigator.cookieEnabled ? 'Yes' : 'No'}
+                </div>
+                <div class="status success">
+                    <strong>Local Storage:</strong> ${typeof(Storage) !== "undefined" ? 'Available' : 'Not Available'}
+                </div>
+                <div class="status success">
+                    <strong>Fetch API:</strong> ${typeof fetch !== 'undefined' ? 'Available' : 'Not Available'}
+                </div>
+            `;
+        }
+
+        // Check server health
+        async function checkHealth() {
+            const resultDiv = document.getElementById('healthResult');
+            resultDiv.innerHTML = '<div class="status warning">Checking...</div>';
+            
+            try {
+                const response = await fetch('/api/auth/health');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="status success">
+                            <strong>✅ Server is healthy!</strong><br>
+                            Status: ${data.status}<br>
+                            Database: ${data.database}<br>
+                            Environment: ${data.environment}<br>
+                            Timestamp: ${data.timestamp}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="status error">
+                            <strong>❌ Server health check failed!</strong><br>
+                            Status: ${response.status}<br>
+                            Error: ${data.error || 'Unknown error'}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="status error">
+                        <strong>❌ Network error!</strong><br>
+                        Error: ${error.message}<br>
+                        This might indicate a server connection issue.
+                    </div>
+                `;
+            }
+        }
+
+        // Test database connection
+        async function testDatabase() {
+            const resultDiv = document.getElementById('databaseResult');
+            resultDiv.innerHTML = '<div class="status warning">Testing database...</div>';
+            
+            try {
+                const response = await fetch('/api/auth/health');
+                const data = await response.json();
+                
+                if (response.ok && data.database === 'connected') {
+                    resultDiv.innerHTML = `
+                        <div class="status success">
+                            <strong>✅ Database connection successful!</strong><br>
+                            Database: ${data.database}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="status error">
+                            <strong>❌ Database connection failed!</strong><br>
+                            Error: ${data.error || 'Unknown database error'}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="status error">
+                        <strong>❌ Database test failed!</strong><br>
+                        Error: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Test login API
+        async function testLoginAPI() {
+            const resultDiv = document.getElementById('loginResult');
+            resultDiv.innerHTML = '<div class="status warning">Testing login API...</div>';
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'test@example.com',
+                        password: 'testpassword'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.status === 401) {
+                    resultDiv.innerHTML = `
+                        <div class="status success">
+                            <strong>✅ Login API is working!</strong><br>
+                            Expected 401 for invalid credentials<br>
+                            Response: ${data.error || 'Invalid credentials'}
+                        </div>
+                    `;
+                } else if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="status warning">
+                            <strong>⚠️ Login API responded with success!</strong><br>
+                            This might indicate test credentials are valid<br>
+                            Response: ${JSON.stringify(data)}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="status error">
+                            <strong>❌ Login API error!</strong><br>
+                            Status: ${response.status}<br>
+                            Response: ${JSON.stringify(data)}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="status error">
+                        <strong>❌ Login API test failed!</strong><br>
+                        Error: ${error.message}<br>
+                        This indicates a network or server issue.
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize page
+        showEnvironmentInfo();
+        showBrowserInfo();
+    </script>
+</body>
+</html> 

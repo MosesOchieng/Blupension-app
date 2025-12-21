@@ -1,0 +1,40 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build outputs
+dist
+build
+.cache
+
+# Development files
+.git
+.github
+.vscode
+*.log
+.env
+.env.*
+!.env.example
+
+# Test files
+__tests__
+*.test.js
+*.test.jsx
+coverage
+
+# Contract files
+contracts
+artifacts
+cache
+typechain-types
+
+# Documentation
+docs
+*.md
+!README.md
+
+# Other
+.DS_Store
+*.pem
+*.key
+*.cert 

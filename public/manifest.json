@@ -1,0 +1,88 @@
+{
+  "name": "Blupension - Revolutionary Pension Management",
+  "short_name": "Blupension",
+  "description": "Revolutionizing pension management with blockchain technology and smart investment strategies",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1e3a8a",
+  "theme_color": "#1e3a8a",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["finance", "business", "productivity"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/icons/blupension.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/blupension-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/blupension-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Login",
+      "short_name": "Login",
+      "description": "Sign in to your account",
+      "url": "/login",
+      "icons": [
+        {
+          "src": "/icons/blupension.png",
+          "sizes": "any"
+        }
+      ]
+    },
+    {
+      "name": "Register",
+      "short_name": "Register",
+      "description": "Create new account",
+      "url": "/register",
+      "icons": [
+        {
+          "src": "/icons/blupension.png",
+          "sizes": "any"
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your pension dashboard",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/icons/blupension.png",
+          "sizes": "any"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Blupension Dashboard"
+    },
+    {
+      "src": "/screenshots/mobile-1.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile Dashboard"
+    }
+  ]
+} 

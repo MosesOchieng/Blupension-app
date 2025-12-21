@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blupension Dashboard</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1e3a8a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Blupension" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-TileColor" content="#1e3a8a" />
+    <meta name="msapplication-tileimage" content="/icons/icon-144x144.png" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-152x152.png" />
+    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/pwa-install.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background-color: #f7fafc;
+      }
+      #root {
+        min-height: 100vh;
+      }
+      .loading-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f5f5f5;
+      }
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .loading-text {
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="loading-screen">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading your dashboard...</div>
+      </div>
+    </div>
+
+    <script>
+      // Check authentication
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "/login.html";
+      } else {
+        // Verify token with server
+        fetch("/api/auth/verify", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "success") {
+              // Update user data in localStorage
+              localStorage.setItem("user", JSON.stringify(data.user));
+              // Load the React dashboard
+              const script = document.createElement("script");
+              script.src = "/static/js/main.js";
+              script.onerror = () => {
+                console.error("Failed to load React bundle");
+                document.querySelector(".loading-text").textContent =
+                  "Error loading dashboard. Please try again.";
+              };
+              document.body.appendChild(script);
+            } else {
+              throw new Error("Token verification failed");
+            }
+          })
+          .catch((error) => {
+            console.error("Auth verification error:", error);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "/login.html";
+          });
+      }
+    </script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      // Register service worker for PWA functionality
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('Service Worker registered successfully:', registration.scope);
+              
+              // Check for updates
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // New content is available, show update prompt
+                    showUpdatePrompt();
+                  }
+                });
+              });
+            })
+            .catch((error) => {
+              console.log('Service Worker registration failed:', error);
+            });
+        });
+      }
+
+      // Show update prompt when new version is available
+      function showUpdatePrompt() {
+        if (confirm('A new version of Blupension is available. Would you like to update?')) {
+          window.location.reload();
+        }
+      }
+
+      // PWA Install functionality is now handled by pwa-install.js
+    </script>
+
+    <!-- PWA Install Manager -->
+    <script src="/js/pwa-install.js"></script>
+  </body>
+</html>

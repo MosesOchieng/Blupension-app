@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome - Blupension</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes scaleIn {
+        from {
+          transform: scale(0);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+      .loading-container {
+        background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%);
+      }
+      .animate-spin-slow {
+        animation: spin 2s linear infinite;
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-in forwards;
+        opacity: 0;
+      }
+      .animate-fade-in-delay-1 {
+        animation: fadeIn 0.5s ease-in 0.5s forwards;
+        opacity: 0;
+      }
+      .animate-fade-in-delay-2 {
+        animation: fadeIn 0.5s ease-in 1s forwards;
+        opacity: 0;
+      }
+      .success-checkmark {
+        display: none;
+        animation: scaleIn 0.5s ease-out forwards;
+        margin: 0 auto;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .checkmark {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        stroke-width: 4;
+        stroke: #4bb543;
+        stroke-miterlimit: 10;
+        animation: scaleIn 0.3s ease-in-out;
+        margin: 0 auto;
+      }
+      .checkmark__circle {
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        stroke-width: 4;
+        stroke-miterlimit: 10;
+        stroke: #4bb543;
+        fill: none;
+        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+      }
+      .checkmark__check {
+        transform-origin: 50% 50%;
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+      }
+      @keyframes stroke {
+        100% {
+          stroke-dashoffset: 0;
+        }
+      }
+      .fade-out {
+        animation: fadeOut 0.5s ease-out forwards;
+      }
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="h-screen">
+    <div
+      class="loading-container h-full flex flex-col items-center justify-center text-white p-8"
+    >
+      <!-- Welcome Content -->
+      <div id="welcomeContent" class="text-center">
+        <h1 class="text-4xl font-bold mb-4 animate-fade-in">
+          Welcome to Blupension
+        </h1>
+        <p class="text-xl text-blue-200 mb-8 animate-fade-in-delay-1">
+          Your Future, Secured
+        </p>
+      </div>
+
+      <!-- Loading Content -->
+      <div id="loadingContent" class="text-center hidden">
+        <div class="mb-8">
+          <div
+            class="inline-block w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin-slow"
+          ></div>
+        </div>
+        <h2 class="text-2xl font-bold mb-4 animate-fade-in">
+          Preparing your dashboard...
+        </h2>
+        <p class="text-blue-200 mb-8 animate-fade-in-delay-1">
+          Please wait while we load your information
+        </p>
+      </div>
+
+      <!-- Success Content -->
+      <div id="successContent" class="text-center hidden">
+        <div class="success-checkmark">
+          <svg
+            class="checkmark"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 52 52"
+          >
+            <circle
+              class="checkmark__circle"
+              cx="26"
+              cy="26"
+              r="25"
+              fill="none"
+            />
+            <path
+              class="checkmark__check"
+              fill="none"
+              d="M14.1 27.2l7.1 7.2 16.7-16.8"
+            />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold mb-4 animate-fade-in">Ready!</h2>
+        <p class="text-blue-200 animate-fade-in-delay-1">
+          Redirecting to your dashboard...
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // Get token from URL or localStorage
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get("token") || localStorage.getItem("token");
+
+      if (!token) {
+        console.error("No token found");
+        window.location.href = "/login.html";
+      }
+
+      // Function to transition between screens with fade effect
+      async function transition(fromId, toId) {
+        const fromElement = document.getElementById(fromId);
+        const toElement = document.getElementById(toId);
+
+        // Add fade-out to current screen
+        fromElement.classList.add("fade-out");
+
+        // Wait for fade-out
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        // Hide current and show next
+        fromElement.classList.add("hidden");
+        toElement.classList.remove("hidden");
+      }
+
+      // Function to verify token and handle transitions
+      async function verifyTokenAndRedirect() {
+        try {
+          console.log("Starting welcome sequence...");
+
+          // Show welcome screen for exactly 3 seconds
+          await new Promise((resolve) => setTimeout(resolve, 3000));
+
+          // Transition to loading screen
+          await transition("welcomeContent", "loadingContent");
+
+          // Show loading screen for exactly 2 seconds
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+
+          // Verify token with backend
+          console.log("Verifying token...");
+          const response = await fetch("/api/auth/verify", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error("Token verification failed");
+          }
+
+          // Transition to success screen
+          await transition("loadingContent", "successContent");
+
+          // Show success checkmark
+          document.querySelector(".success-checkmark").style.display = "block";
+
+          // Show success screen for exactly 2 seconds
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+
+          // Redirect to dashboard
+          window.location.href = "/dashboard.html";
+        } catch (error) {
+          console.error("Error during verification:", error);
+          localStorage.removeItem("token");
+          window.location.href = "/login.html";
+        }
+      }
+
+      // Start the verification process when the page loads
+      window.addEventListener("load", verifyTokenAndRedirect);
+    </script>
+  </body>
+</html>

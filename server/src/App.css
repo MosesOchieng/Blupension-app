@@ -1,0 +1,49 @@
+/* Mobile-first responsive layout */
+.app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.main-content {
+  margin-left: 0;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 0;
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .main-content {
+    padding-top: 64px; /* Space for navbar */
+    padding-bottom: 60px; /* Space for mobile footer */
+  }
+}
+
+/* Ensure proper spacing for content */
+.container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Fix dropdown positioning */
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 50;
+}
+
+/* Ensure proper scrolling */
+.overflow-auto {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Mobile-friendly touch targets */
+@media (max-width: 767px) {
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blupension Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background-color: #f7fafc;
+      }
+      #root {
+        min-height: 100vh;
+      }
+      .loading-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f5f5f5;
+      }
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .loading-text {
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="loading-screen">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading your dashboard...</div>
+      </div>
+    </div>
+
+    <script>
+      // Check authentication
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "/login.html";
+      } else {
+        // Verify token with server
+        fetch("/api/auth/verify", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "success") {
+              // Update user data in localStorage
+              localStorage.setItem("user", JSON.stringify(data.user));
+              // Load the React dashboard
+              const script = document.createElement("script");
+              script.src = "/static/js/main.js";
+              script.onerror = () => {
+                console.error("Failed to load React bundle");
+                document.querySelector(".loading-text").textContent =
+                  "Error loading dashboard. Please try again.";
+              };
+              document.body.appendChild(script);
+            } else {
+              throw new Error("Token verification failed");
+            }
+          })
+          .catch((error) => {
+            console.error("Auth verification error:", error);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "/login.html";
+          });
+      }
+    </script>
+  </body>
+</html>

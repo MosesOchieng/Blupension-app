@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Blupension</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <!-- Add Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      .login-image {
+        background-image: url("/images/login.jpg");
+        background-size: cover;
+        background-position: center;
+      }
+      @media (max-width: 768px) {
+        .login-image {
+          display: none;
+        }
+      }
+      .alert {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 0.375rem;
+      }
+      .alert-danger {
+        background-color: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fca5a5;
+      }
+      .alert-success {
+        background-color: #dbeafe;
+        color: #1e40af;
+        border: 1px solid #93c5fd;
+      }
+      /* Add loading screen styles */
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.9);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      .loading-content {
+        text-align: center;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .spinner {
+        animation: spin 1s linear infinite;
+        margin-bottom: 1rem;
+      }
+      .success-icon {
+        display: none;
+        margin: 0 auto 1rem;
+      }
+      .success-icon.show {
+        display: block;
+      }
+      .success-message {
+        background-color: #dbeafe !important;
+        color: #1e40af !important;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        display: none;
+        border: 1px solid #93c5fd;
+      }
+      .error-message {
+        background-color: #fee2e2;
+        color: #b91c1c;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        display: none;
+        border: 1px solid #fca5a5;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <div class="flex min-h-screen">
+      <!-- Image Section -->
+      <div class="hidden md:flex md:w-1/2 login-image"></div>
+
+      <!-- Login Form Section -->
+      <div
+        class="w-full md:w-1/2 flex items-center justify-center p-8 bg-gray-50"
+      >
+        <div class="w-full max-w-md">
+          <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Welcome Back</h1>
+            <p class="text-gray-600 mt-2">Sign in to your Blupension account</p>
+          </div>
+
+          <div class="form-container">
+            <div id="successMessage" class="success-message"></div>
+            <div id="errorMessage" class="error-message"></div>
+            <form id="loginForm" class="space-y-6">
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              <div>
+                <label
+                  for="password"
+                  class="block text-sm font-medium text-gray-700"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  required
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="remember"
+                    name="remember"
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label for="remember" class="ml-2 block text-sm text-gray-700"
+                    >Remember me</label
+                  >
+                </div>
+                <a href="#" class="text-sm text-blue-600 hover:text-blue-500"
+                  >Forgot password?</a
+                >
+              </div>
+
+              <button
+                type="submit"
+                class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Sign in
+              </button>
+
+              <div class="text-center my-4">
+                <span class="text-gray-500">Or continue with</span>
+              </div>
+
+              <div class="flex space-x-4">
+                <button
+                  type="button"
+                  onclick="handleGoogleLogin()"
+                  class="flex-1 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  <div class="flex items-center justify-center">
+                    <i
+                      class="fab fa-google text-xl mr-2"
+                      style="color: #4285f4"
+                    ></i>
+                    Google
+                  </div>
+                </button>
+                <button
+                  type="button"
+                  onclick="handleLinkedInLogin()"
+                  class="flex-1 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  <div class="flex items-center justify-center">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
+                      alt="LinkedIn"
+                      class="w-5 h-5 mr-2"
+                    />
+                    LinkedIn
+                  </div>
+                </button>
+              </div>
+
+              <div class="text-center mt-6">
+                <p class="text-sm text-gray-600">
+                  Don't have an account?
+                  <a
+                    href="/register"
+                    class="font-medium text-blue-600 hover:text-blue-500"
+                    >Sign up</a
+                  >
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add loading screen HTML -->
+    <div id="loadingScreen" class="loading-screen">
+      <div class="loading-content">
+        <div id="loadingSpinner" class="spinner">
+          <svg
+            class="w-12 h-12 text-blue-500"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+        </div>
+        <div id="successIcon" class="success-icon">
+          <svg
+            class="w-12 h-12 text-green-500"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </div>
+        <p id="loadingMessage" class="text-lg text-gray-600">Logging in...</p>
+      </div>
+    </div>
+
+    <script>
+      // Only check authentication if we're not already being redirected from dashboard
+      if (!window.location.search.includes("redirect=true")) {
+        const token = localStorage.getItem("token");
+        if (token) {
+          // Verify token with server
+          fetch("/api/auth/verify", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.status === "success") {
+                // Update user data in localStorage
+                localStorage.setItem("user", JSON.stringify(data.user));
+                window.location.href = "/dashboard";
+              } else {
+                // Token is invalid, remove it
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+              }
+            })
+            .catch((error) => {
+              console.error("Auth verification error:", error);
+              localStorage.removeItem("token");
+              localStorage.removeItem("user");
+            });
+        }
+      }
+
+      async function handleLogin(event) {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        try {
+          const response = await fetch("http://localhost:5000/api/auth/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            // Store token and user data
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            // Show success message
+            const successMessage = document.getElementById("successMessage");
+            successMessage.textContent = "Login successful! Redirecting...";
+            successMessage.style.display = "block";
+
+            // Redirect to dashboard
+            window.location.href = "/dashboard";
+          } else {
+            // Show error message
+            const errorMessage = document.getElementById("errorMessage");
+            errorMessage.textContent =
+              data.message || "Login failed. Please try again.";
+            errorMessage.style.display = "block";
+          }
+        } catch (error) {
+          console.error("Login error:", error);
+          const errorMessage = document.getElementById("errorMessage");
+          errorMessage.textContent = "An error occurred. Please try again.";
+          errorMessage.style.display = "block";
+        }
+      }
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", handleLogin);
+
+      function handleGoogleLogin() {
+        // Implement Google OAuth login
+        window.location.href = "/api/auth/google";
+      }
+
+      function handleLinkedInLogin() {
+        // Implement LinkedIn OAuth login
+        window.location.href = "/api/auth/linkedin";
+      }
+    </script>
+  </body>
+</html>

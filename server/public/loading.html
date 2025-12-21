@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading - Blupension</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .spinner {
+        animation: spin 1s linear infinite;
+      }
+      @keyframes scale {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .scale-fade-in {
+        animation: scale 0.3s ease-out forwards;
+      }
+      .success-icon {
+        display: none;
+      }
+      .success-icon.show {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-white flex items-center justify-center">
+    <div class="text-center">
+      <!-- Loading Spinner -->
+      <div id="loadingSpinner" class="mb-4">
+        <svg
+          class="spinner mx-auto h-12 w-12 text-blue-500"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+        <p class="mt-4 text-lg text-gray-600">Redirecting to dashboard...</p>
+      </div>
+
+      <!-- Success Icon -->
+      <div id="successIcon" class="success-icon mb-4">
+        <div
+          class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-green-500 scale-fade-in"
+        >
+          <svg
+            class="h-6 w-6 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </div>
+        <p class="mt-4 text-lg text-gray-600">Success!</p>
+      </div>
+    </div>
+
+    <script>
+      // Show loading for 1.5 seconds
+      setTimeout(() => {
+        // Hide loading spinner
+        document.getElementById("loadingSpinner").style.display = "none";
+        // Show success icon
+        const successIcon = document.getElementById("successIcon");
+        successIcon.classList.add("show");
+
+        // Redirect to dashboard after showing success for 1 second
+        setTimeout(() => {
+          window.location.href = "/dashboard";
+        }, 1000);
+      }, 1500);
+    </script>
+  </body>
+</html>

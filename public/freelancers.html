@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blupension for Freelancers</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .calculator-slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 8px;
+        border-radius: 4px;
+        background: #e2e8f0;
+        outline: none;
+      }
+      .calculator-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #3b82f6;
+        cursor: pointer;
+      }
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+      }
+      .faq-answer.active {
+        max-height: 500px;
+      }
+      .progress-step {
+        transition: all 0.3s ease;
+      }
+      .progress-step:hover {
+        transform: scale(1.05);
+      }
+      .chat-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <nav class="bg-blue-900 p-6 sticky top-0 z-50">
+      <div class="container mx-auto flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold text-white">Blupension</a>
+        <div class="space-x-4">
+          <a href="/login" class="text-white hover:text-blue-200">Login</a>
+          <a
+            href="/register"
+            class="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50"
+            >Sign Up</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="bg-blue-900 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+          <h1 class="text-5xl font-bold mb-6">Blupension for Freelancers</h1>
+          <p class="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
+            Take control of your retirement planning with a flexible pension
+            solution designed for the modern freelancer.
+          </p>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="py-20">
+        <div class="container mx-auto px-6">
+          <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+              <div
+                class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4">Flexible Contributions</h3>
+              <p class="text-gray-600">
+                Contribute when it suits you - monthly, quarterly, or based on
+                project completions.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+              <div
+                class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4">Smart Portfolio</h3>
+              <p class="text-gray-600">
+                AI-driven investment strategies optimized for freelance income
+                patterns.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+              <div
+                class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4">Tax Optimization</h3>
+              <p class="text-gray-600">
+                Maximize tax benefits with our intelligent contribution
+                scheduling system.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works -->
+      <section class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold text-center mb-12">How It Works</h2>
+          <div class="max-w-4xl mx-auto">
+            <div class="space-y-8">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0"
+                >
+                  1
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold mb-2">Sign Up</h3>
+                  <p class="text-gray-600">
+                    Create your Blupension account and verify your freelancer
+                    status.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0"
+                >
+                  2
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold mb-2">Choose Your Plan</h3>
+                  <p class="text-gray-600">
+                    Select an investment strategy that matches your risk
+                    tolerance and retirement goals.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0"
+                >
+                  3
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold mb-2">Set Up Contributions</h3>
+                  <p class="text-gray-600">
+                    Configure your contribution schedule - choose from automatic
+                    deductions or manual deposits.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0"
+                >
+                  4
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold mb-2">Track & Grow</h3>
+                  <p class="text-gray-600">
+                    Monitor your investments and adjust your strategy through
+                    our intuitive dashboard.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Benefits Section -->
+      <section class="py-20">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold text-center mb-12">
+            Freelancer Benefits
+          </h2>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+              <h3 class="text-xl font-bold mb-4">Financial Advantages</h3>
+              <ul class="space-y-4">
+                <li class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                  <span>Tax-deductible contributions</span>
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                  <span>Flexible contribution amounts</span>
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                  <span>Crypto-enhanced returns potential</span>
+                </li>
+              </ul>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+              <h3 class="text-xl font-bold mb-4">Platform Features</h3>
+              <ul class="space-y-4">
+                <li class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                  <span>Invoice integration for automatic savings</span>
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                  <span>Personalized investment strategies</span>
+                </li>
+                <li class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                  <span>Real-time portfolio analytics</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-blue-900 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+          <h2 class="text-3xl font-bold mb-8">
+            Start Your Freelancer Pension Today
+          </h2>
+          <p class="text-xl mb-8">
+            Join the growing community of freelancers securing their financial
+            future with Blupension.
+          </p>
+          <a
+            href="/register"
+            class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 inline-block"
+            >Sign Up Now</a
+          >
+        </div>
+      </section>
+
+      <!-- Calculator Section -->
+      <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold text-center mb-12">
+            Retirement Calculator
+          </h2>
+          <div class="max-w-2xl mx-auto bg-gray-100 p-8 rounded-xl shadow-lg">
+            <div class="space-y-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Monthly Contribution
+                </label>
+                <input
+                  type="range"
+                  min="100"
+                  max="5000"
+                  step="100"
+                  value="1000"
+                  class="calculator-slider"
+                  id="contributionSlider"
+                  title="Monthly contribution amount"
+                  aria-label="Monthly contribution amount"
+                />
+                <p class="text-right mt-2">
+                  $<span id="contributionValue">1000</span>
+                </p>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Investment Period (Years)
+                </label>
+                <input
+                  type="range"
+                  min="5"
+                  max="40"
+                  step="1"
+                  value="20"
+                  class="calculator-slider"
+                  id="periodSlider"
+                  title="Investment period in years"
+                  aria-label="Investment period in years"
+                />
+                <p class="text-right mt-2">
+                  <span id="periodValue">20</span> years
+                </p>
+              </div>
+              <div class="bg-white p-6 rounded-lg mt-8">
+                <h3 class="text-lg font-semibold mb-4">Projected Results</h3>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-sm text-gray-600">Total Contributions</p>
+                    <p class="text-2xl font-bold text-blue-600">
+                      $<span id="totalContributions">240,000</span>
+                    </p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-600">Projected Value</p>
+                    <p class="text-2xl font-bold text-green-600">
+                      $<span id="projectedValue">750,000</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold text-center mb-12">
+            Frequently Asked Questions
+          </h2>
+          <div class="max-w-3xl mx-auto space-y-6">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                class="w-full px-6 py-4 text-left focus:outline-none faq-button"
+              >
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-semibold">
+                    How does Blupension work for freelancers?
+                  </h3>
+                  <svg
+                    class="w-6 h-6 transform transition-transform faq-icon"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+              </button>
+              <div class="faq-answer px-6 pb-4">
+                <p class="text-gray-600">
+                  Blupension provides a flexible pension solution tailored for
+                  freelancers. You can contribute whenever it suits your income
+                  pattern, invest in a diversified portfolio including crypto
+                  assets, and manage everything through our intuitive platform.
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                class="w-full px-6 py-4 text-left focus:outline-none faq-button"
+              >
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-semibold">
+                    What are the minimum contribution requirements?
+                  </h3>
+                  <svg
+                    class="w-6 h-6 transform transition-transform faq-icon"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+              </button>
+              <div class="faq-answer px-6 pb-4">
+                <p class="text-gray-600">
+                  There is no strict minimum contribution requirement. You can
+                  start with as little as $100 per month or contribute whenever
+                  you have extra income. Our platform is designed to accommodate
+                  the irregular income patterns typical of freelance work.
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                class="w-full px-6 py-4 text-left focus:outline-none faq-button"
+              >
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-semibold">
+                    How is my money invested?
+                  </h3>
+                  <svg
+                    class="w-6 h-6 transform transition-transform faq-icon"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+              </button>
+              <div class="faq-answer px-6 pb-4">
+                <p class="text-gray-600">
+                  Your contributions are invested in a diversified portfolio
+                  that includes traditional assets (stocks, bonds) and
+                  cryptocurrency assets (BLU token, stablecoins). Our AI-driven
+                  system automatically rebalances your portfolio based on market
+                  conditions and your risk profile.
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                class="w-full px-6 py-4 text-left focus:outline-none faq-button"
+              >
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-semibold">
+                    What happens if I need to access my funds early?
+                  </h3>
+                  <svg
+                    class="w-6 h-6 transform transition-transform faq-icon"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+              </button>
+              <div class="faq-answer px-6 pb-4">
+                <p class="text-gray-600">
+                  While Blupension is designed for long-term retirement savings,
+                  we understand that freelancers may face unexpected financial
+                  needs. You can withdraw funds early, subject to applicable
+                  fees and tax implications. We recommend speaking with our
+                  financial advisors before making early withdrawals.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chat Widget -->
+      <div class="chat-widget">
+        <button
+          class="bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 transition-colors"
+          id="chatToggle"
+          title="Open chat assistant"
+          aria-label="Open chat assistant"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+            />
+          </svg>
+        </button>
+        <div
+          class="hidden bg-white rounded-lg shadow-xl flex flex-col"
+          id="chatWindow"
+          style="width: 300px; height: 400px"
+        >
+          <div
+            class="bg-blue-600 text-white p-4 flex justify-between items-center"
+          >
+            <h3 class="font-semibold">Blupension Assistant</h3>
+            <button
+              id="closeChat"
+              class="text-white hover:text-blue-200"
+              title="Close chat"
+              aria-label="Close chat"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            id="chatMessages"
+            class="flex-1 overflow-y-auto p-4 space-y-4"
+          ></div>
+          <div class="border-t p-4">
+            <div class="flex space-x-2">
+              <input
+                type="text"
+                id="chatInput"
+                class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Type your message..."
+              />
+              <button
+                id="sendMessage"
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-12">
+      <div class="container mx-auto px-6 text-center">
+        <p>&copy; 2024 Blupension. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Include JavaScript files -->
+    <script src="/js/calculator.js"></script>
+    <script src="/js/chat.js"></script>
+    <script src="/js/faq.js"></script>
+  </body>
+</html>

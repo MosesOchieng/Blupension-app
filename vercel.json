@@ -1,0 +1,63 @@
+{
+  "rewrites": [
+    {
+      "source": "/login",
+      "destination": "/login.html"
+    },
+    {
+      "source": "/register",
+      "destination": "/register.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/dashboard.html"
+    },
+    {
+      "source": "/forgot-password",
+      "destination": "/forgot-password.html"
+    },
+    {
+      "source": "/reset-password",
+      "destination": "/reset-password.html"
+    },
+    {
+      "source": "/verify-code",
+      "destination": "/verify-code.html"
+    },
+    {
+      "source": "/service-details",
+      "destination": "/service-details.html"
+    },
+    {
+      "source": "/freelancers",
+      "destination": "/freelancers.html"
+    },
+    {
+      "source": "/employees",
+      "destination": "/employees.html"
+    },
+    {
+      "source": "/starter-page",
+      "destination": "/starter-page.html"
+    },
+    {
+      "source": "/loading",
+      "destination": "/loading.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+} 

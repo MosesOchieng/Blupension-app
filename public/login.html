@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Blupension</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1e3a8a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Blupension" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-TileColor" content="#1e3a8a" />
+    <meta name="msapplication-tileimage" content="/icons/icon-144x144.png" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-152x152.png" />
+    
+    <!-- Add Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- Add our compiled CSS -->
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/pwa-install.css" />
+    <style>
+      .login-image {
+        background-image: url("/images/login.jpg");
+        background-size: cover;
+        background-position: center;
+        min-height: 200px;
+      }
+      
+      /* Mobile responsive image */
+      @media (max-width: 768px) {
+        .login-image {
+          display: block !important;
+          height: 200px;
+          width: 100%;
+          order: -1; /* Show image at top on mobile */
+        }
+        .login-container {
+          flex-direction: column;
+        }
+        .login-form-section {
+          padding: 1rem;
+        }
+      }
+      
+      .success-message {
+        background-color: #dbeafe !important;
+        color: #1e40af !important;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        display: none;
+        border: 1px solid #93c5fd;
+      }
+      .error-message {
+        background-color: #fee2e2;
+        color: #b91c1c;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        display: none;
+        border: 1px solid #fca5a5;
+      }
+      /* Add loading screen styles */
+      .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-gray-50">
+    <div class="flex min-h-screen login-container">
+      <!-- Image Section -->
+      <div class="hidden md:flex md:w-1/2 login-image"></div>
+
+      <!-- Login Form Section -->
+      <div class="w-full md:w-1/2 flex items-center justify-center p-8 login-form-section">
+        <div class="w-full max-w-md">
+          <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Welcome Back</h1>
+            <p class="text-gray-600 mt-2">Sign in to your Blupension account</p>
+          </div>
+
+          <div class="form-container">
+            <div id="successMessage" class="success-message"></div>
+            <div id="errorMessage" class="error-message"></div>
+            <form id="loginForm">
+              <div class="mb-4">
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              <div class="mb-4">
+                <label
+                  for="password"
+                  class="block text-sm font-medium text-gray-700"
+                  >Password</label
+                >
+                <div class="relative">
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 pr-10"
+                  />
+                  <button
+                    type="button"
+                    onclick="togglePasswordVisibility('password')"
+                    class="absolute inset-y-0 right-0 mt-1 pr-3 flex items-center text-gray-600 cursor-pointer hover:text-gray-800"
+                    title="Toggle password visibility"
+                    aria-label="Toggle password visibility"
+                  >
+                    <i class="fas fa-eye" id="password-toggle-icon"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="remember"
+                    name="remember"
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label for="remember" class="ml-2 block text-sm text-gray-700"
+                    >Remember me</label
+                  >
+                </div>
+                <a
+                  href="/forgot-password.html"
+                  class="text-sm text-blue-600 hover:text-blue-500"
+                  >Forgot password?</a
+                >
+              </div>
+
+              <button
+                type="submit"
+                class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Sign in
+              </button>
+
+              <div class="text-center my-4">
+                <span class="text-gray-500">Or continue with</span>
+              </div>
+
+              <div class="flex space-x-4">
+                <button
+                  type="button"
+                  onclick="handleGoogleLogin()"
+                  class="flex-1 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  <div class="flex items-center justify-center">
+                    <i
+                      class="fab fa-google text-xl mr-2"
+                      style="color: #4285f4"
+                    ></i>
+                    Google
+                  </div>
+                </button>
+                <button
+                  type="button"
+                  onclick="handleLinkedInLogin()"
+                  class="flex-1 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  <div class="flex items-center justify-center">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
+                      alt="LinkedIn"
+                      class="w-5 h-5 mr-2"
+                    />
+                    LinkedIn
+                  </div>
+                </button>
+              </div>
+
+              <div class="text-center mt-6">
+                <p class="text-sm text-gray-600">
+                  Don't have an account?
+                  <a
+                    href="/register"
+                    class="font-medium text-blue-600 hover:text-blue-500"
+                    >Sign up</a
+                  >
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+      const loadingOverlay = document.getElementById("loadingOverlay");
+      const successMessage = document.getElementById("successMessage");
+      const errorMessage = document.getElementById("errorMessage");
+
+      // Add showError function
+      function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = "block";
+      }
+
+      // Add showSuccess function
+      function showSuccess(message) {
+        successMessage.textContent = message;
+        successMessage.style.display = "block";
+      }
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          // Clear previous messages
+          successMessage.style.display = "none";
+          errorMessage.style.display = "none";
+
+          // Show loading overlay
+          loadingOverlay.style.display = "flex";
+
+          try {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            console.log("Attempting login for:", email);
+
+            const response = await fetch("/api/auth/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+              },
+              body: JSON.stringify({ email, password }),
+              credentials: 'include' // Include cookies
+            });
+
+            console.log("Response status:", response.status);
+            console.log("Response headers:", response.headers);
+
+            const data = await response.json();
+            console.log("Response data:", data);
+
+            if (response.ok && data.status === "success" && data.token) {
+              // Store the token in localStorage
+              localStorage.setItem('token', data.token);
+              localStorage.setItem('user', JSON.stringify(data.user));
+              
+              // Show success message
+              showSuccess("Login successful! Redirecting to dashboard...");
+              
+              // Redirect to dashboard - the server will verify token and serve React app
+              // Use replace to prevent back button from going to login
+              setTimeout(() => {
+                window.location.replace("/dashboard");
+              }, 1000);
+            } else if (data.requiresVerification && data.userId) {
+              // User needs to verify email - redirect to verification page
+              sessionStorage.setItem('verificationEmail', email);
+              sessionStorage.setItem('verificationUserId', data.userId);
+              
+              // Show message
+              showSuccess(data.message || "A new verification code has been sent to your email. Redirecting to verification...");
+              
+              // Redirect to verification page after a short delay
+              setTimeout(() => {
+                window.location.href = "/verify-code.html";
+              }, 2000);
+            } else {
+              // Show specific error message from server
+              const errorMsg = data.error || data.message || "Login failed. Please check your credentials.";
+              showError(errorMsg);
+              console.error("Login failed:", data);
+            }
+          } catch (error) {
+            console.error("Login error:", error);
+            
+            // More specific error messages
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+              showError("Network error. Please check your connection and try again.");
+            } else if (error.name === 'SyntaxError') {
+              showError("Server response error. Please try again.");
+            } else {
+              showError("An error occurred. Please try again.");
+            }
+          } finally {
+            // Hide loading overlay
+            loadingOverlay.style.display = "none";
+          }
+        });
+
+      // Toggle password visibility
+      function togglePasswordVisibility(inputId) {
+        const input = document.getElementById(inputId);
+        const icon = input.nextElementSibling.querySelector("i");
+
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        } else {
+          input.type = "password";
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        }
+      }
+
+      // Handle social login
+      function handleGoogleLogin() {
+        // Implement Google login
+        console.log("Google login clicked");
+      }
+
+      function handleLinkedInLogin() {
+        // Implement LinkedIn login
+        console.log("LinkedIn login clicked");
+      }
+    </script>
+
+    <!-- PWA Install Manager -->
+    <script src="/js/pwa-install.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      // Register service worker for PWA functionality
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('Service Worker registered successfully:', registration.scope);
+            })
+            .catch((error) => {
+              console.log('Service Worker registration failed:', error);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

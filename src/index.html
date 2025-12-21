@@ -1,0 +1,2560 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Blupension - Revolutionizing Pension Management</title>
+    <!-- Add Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- Add our compiled CSS -->
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/chat.css" />
+    <style>
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+      .gradient-overlay {
+        background: linear-gradient(
+          to bottom,
+          rgba(30, 58, 138, 0.8),
+          rgba(30, 58, 138, 0.95)
+        );
+      }
+      .news-card {
+        transition: transform 0.3s ease;
+      }
+      .news-card:hover {
+        transform: translateY(-5px);
+      }
+      .hero-pattern {
+        background-color: #1e3a8a;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.828-1.415 1.415L51.8 0h2.827zM5.373 0l-.83.828L5.96 2.243 8.2 0H5.374zM48.97 0l3.657 3.657-1.414 1.414L46.143 0h2.828zM11.03 0L7.372 3.657 8.787 5.07 13.857 0H11.03zm32.284 0L49.8 6.485 48.384 7.9l-7.9-7.9h2.83zM16.686 0L10.2 6.485 11.616 7.9l7.9-7.9h-2.83zM22.343 0L13.857 8.485 15.272 9.9l7.9-7.9h-.83zm5.657 0L19.514 8.485 20.93 9.9l8.485-8.485h-1.415zM32.372 0L22.343 10.03 23.758 11.444l10.03-10.03h-1.415zm-5.657 0L18.686 8.03 20.1 9.444 29.03 .515 27.615 0h-1.415zM38.03 0L29.03 9l1.414 1.414L40.444 0h-2.415zm-5.657 0L23.343 9l1.414 1.414L34.787 0h-2.414zM40.444 0L33.03 7.414 34.444 8.828 43.858 0h-3.414zM25.373 0L15.344 10.03 16.758 11.444 28.787 0h-3.414zM17.515 0L7.485 10.03 8.9 11.444 20.93 0h-3.415zM11.657 0L0 11.657l1.414 1.414L13.07 0h-1.415zM5.8 0L0 5.8V8.627l7.9-7.9L5.8 0zm5.657 0L0 11.456v2.828l13.07-13.07L11.456 0zM17.515 0L0 17.514V20.343L20.343 0h-2.828zm5.657 0L0 23.17v2.83L26 0h-2.828zm5.657 0L0 28.828v2.83L31.657 0h-2.828zm5.657 0L0 34.485v2.828L37.314 0h-2.828zm5.657 0L0 40.142v2.828L42.97 0h-2.828zm5.657 0L0 45.8v2.828L48.627 0h-2.828zm5.657 0L0 51.456v2.828L54.284 0h-2.828zm5.657 0L0 57.113V60h1.114L60 1.114V0h-2.828z' fill='%232563EB' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+      }
+
+      /* Chatbot Animations and Styles */
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+        }
+      }
+
+      @keyframes shine {
+        0% {
+          background-position: -100% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+
+      @keyframes thoughtPop {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 0.8;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0;
+        }
+      }
+
+      .chatbot-button {
+        animation: float 3s ease-in-out infinite;
+        position: relative;
+      }
+
+      .chatbot-button::before {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        border-radius: 50%;
+        padding: 3px;
+        background: linear-gradient(90deg, #4f46e5, #3b82f6, #60a5fa, #4f46e5);
+        background-size: 200% 100%;
+        animation: shine 3s linear infinite;
+        mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+      }
+
+      .thought-bubble {
+        position: absolute;
+        padding: 8px 12px;
+        background: white;
+        border-radius: 15px;
+        font-size: 12px;
+        color: #3b82f6;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 100;
+      }
+
+      .thought-bubble::after {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: white;
+        border-radius: 2px;
+        transform: rotate(45deg);
+      }
+
+      .thought-bubble.left::after {
+        right: -5px;
+        top: 50%;
+        margin-top: -5px;
+      }
+
+      .thought-bubble.top::after {
+        bottom: -5px;
+        left: 50%;
+        margin-left: -5px;
+      }
+
+      .pulse-effect {
+        animation: pulse 2s infinite;
+      }
+
+      /* Add styles for Hidden Cost section */
+      .cost-card {
+        position: relative;
+        transition: transform 0.3s ease;
+      }
+
+      .cost-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .cost-popup {
+        position: absolute;
+        top: -120px;
+        left: 50%;
+        transform: translateX(-50%) scale(0);
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: max-content;
+        max-width: 300px;
+        z-index: 20;
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .cost-card:hover .cost-popup {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+      }
+
+      .stat-bar {
+        height: 8px;
+        border-radius: 4px;
+        background: linear-gradient(90deg, currentColor 0%, transparent 100%);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      /* Investment plan popup styles */
+      .plan-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        overflow-y: auto;
+        padding: 2rem;
+      }
+
+      .plan-popup-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        max-width: 90%;
+        width: 800px;
+        position: relative;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+        margin: auto;
+      }
+
+      .plan-popup-content img {
+        height: 300px;
+        object-fit: cover;
+        border-radius: 0.5rem;
+      }
+
+      /* Chatbot Styles */
+      .chatbot-container {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 1000;
+      }
+
+      .chatbot-button {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3b82f6, #4f46e5);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .chatbot-button::before {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        border-radius: 50%;
+        padding: 3px;
+        background: linear-gradient(90deg, #4f46e5, #3b82f6, #60a5fa, #4f46e5);
+        background-size: 200% 100%;
+        animation: shine 3s linear infinite;
+        mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+      }
+
+      .chatbot-button:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+      }
+
+      .chatbot-button:active {
+        transform: scale(0.95);
+      }
+
+      .chatbot-button svg {
+        width: 28px;
+        height: 28px;
+        transition: transform 0.3s ease;
+      }
+
+      .chatbot-button:hover svg {
+        transform: scale(1.1);
+      }
+
+      @keyframes shine {
+        0% {
+          background-position: -100% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+        }
+      }
+
+      .chatbot-button::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 50%;
+        background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        pointer-events: none;
+      }
+
+      .chatbot-button .notification-dot {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        width: 12px;
+        height: 12px;
+        background: #ef4444;
+        border-radius: 50%;
+        border: 2px solid white;
+        animation: pulse 2s infinite;
+      }
+
+      .chatbot-window {
+        position: fixed;
+        bottom: 5rem;
+        right: 2rem;
+        width: 380px;
+        height: 600px;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .chatbot-window.active {
+        display: flex;
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .chatbot-header {
+        background: linear-gradient(135deg, #3b82f6, #4f46e5);
+        color: white;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .chatbot-profile {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .chatbot-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chatbot-avatar::before {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        border-radius: 50%;
+        padding: 3px;
+        background: linear-gradient(90deg, #4f46e5, #3b82f6, #60a5fa, #4f46e5);
+        background-size: 200% 100%;
+        animation: shine 3s linear infinite;
+        mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+      }
+
+      .chatbot-name {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      .chatbot-status {
+        font-size: 0.75rem;
+        opacity: 0.8;
+      }
+
+      .chatbot-messages {
+        flex: 1;
+        padding: 1rem;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .message {
+        max-width: 80%;
+        padding: 0.75rem 1rem;
+        border-radius: 1rem;
+        position: relative;
+        animation: messagePop 0.3s ease;
+      }
+
+      @keyframes messagePop {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .message.user {
+        margin-left: auto;
+        background: linear-gradient(135deg, #3b82f6, #4f46e5);
+        color: white;
+        border-radius: 1rem 1rem 0 1rem;
+      }
+
+      .message.bot {
+        margin-right: auto;
+        background: #f3f4f6;
+        color: #1f2937;
+        border-radius: 1rem 1rem 1rem 0;
+      }
+
+      .thinking {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        background: #f3f4f6;
+        border-radius: 1rem 1rem 1rem 0;
+        max-width: 80%;
+        margin-right: auto;
+      }
+
+      .thinking-dot {
+        width: 8px;
+        height: 8px;
+        background: #3b82f6;
+        border-radius: 50%;
+        animation: thinking 1.4s infinite;
+      }
+
+      .thinking-dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .thinking-dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes thinking {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      .chatbot-input {
+        padding: 1rem;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        gap: 0.5rem;
+        background: white;
+      }
+
+      .chatbot-input input {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.75rem;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      .chatbot-input input:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+
+      .chatbot-input button {
+        padding: 0.75rem;
+        background: linear-gradient(135deg, #3b82f6, #4f46e5);
+        color: white;
+        border: none;
+        border-radius: 0.75rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .chatbot-input button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+      }
+
+      .chatbot-input button:active {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <nav class="bg-blue-900 p-6 sticky top-0 z-50">
+      <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-white">Blupension</h1>
+        <div class="space-x-4">
+          <a href="/login" class="text-white hover:text-blue-200">Login</a>
+          <a
+            href="/register"
+            class="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50"
+            >Sign Up</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero-pattern text-white py-20">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-6">
+              Revolutionizing Pension Management
+              </h1>
+            <p class="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
+              Take control of your retirement planning with our innovative
+              platform that addresses the broken pension system.
+            </p>
+          </div>
+
+          <!-- Dashboard Preview -->
+          <div class="relative max-w-4xl mx-auto mb-12">
+            <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+              <img
+                src="/images/dashboard.jpg"
+                alt="Blupension Dashboard"
+                class="w-full"
+              />
+              <!-- Floating Stats Box -->
+              <div
+                class="absolute top-4 right-4 bg-blue-600 bg-opacity-90 text-white p-4 rounded-lg backdrop-blur-sm"
+              >
+                <div class="typewriter-text font-semibold"></div>
+              </div>
+            </div>
+
+            <!-- Pension Statistics Grid -->
+            <div class="grid md:grid-cols-3 gap-6 mt-8">
+              <div
+                class="bg-black bg-opacity-50 p-6 rounded-lg backdrop-blur-sm"
+              >
+                <h3 class="text-xl font-bold mb-2">African Pension Crisis</h3>
+                <p class="text-blue-200">
+                  Only 8% of working-age Africans have pension coverage
+                </p>
+                <p class="text-sm text-gray-300 mt-2">
+                  Source: World Bank Report 2024
+                </p>
+              </div>
+              <div
+                class="bg-black bg-opacity-50 p-6 rounded-lg backdrop-blur-sm"
+              >
+                <h3 class="text-xl font-bold mb-2">Gen Z Retirement Gap</h3>
+                <p class="text-blue-200">
+                  73% of Gen Z workers lack pension plans
+                </p>
+                <p class="text-sm text-gray-300 mt-2">
+                  Source: Retirement Survey 2024
+                </p>
+              </div>
+              <div
+                class="bg-black bg-opacity-50 p-6 rounded-lg backdrop-blur-sm"
+              >
+                <h3 class="text-xl font-bold mb-2">Global Coverage</h3>
+                <p class="text-blue-200">
+                  4.1B people worldwide have no pension access
+                </p>
+                <p class="text-sm text-gray-300 mt-2">
+                  Source: ILO Global Report
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <div class="space-x-4">
+              <a
+                href="/register"
+                class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 inline-block"
+                >Start Your Journey</a
+              >
+              <a
+                href="#pension-crisis"
+                class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 inline-block"
+                >Learn More</a
+              >
+              </div>
+            </div>
+          </div>
+
+        <!-- Add Dynamic Text Script -->
+        <script>
+          const messages = [
+            "Portfolio Value: $127,432 (+2.3%)",
+            "Market Update: Pension Funds +1.2%",
+            "Real-time ROI: 8.5% Annual",
+            "Risk Score: Low",
+            "Next Payout: 15 Days",
+            "Investment Health: 94%",
+          ];
+
+          let messageIndex = 0;
+          const textElement = document.querySelector(".typewriter-text");
+
+          function updateText() {
+            textElement.style.opacity = "0";
+            setTimeout(() => {
+              textElement.textContent = messages[messageIndex];
+              textElement.style.opacity = "1";
+              messageIndex = (messageIndex + 1) % messages.length;
+            }, 500);
+          }
+
+          updateText();
+          setInterval(updateText, 4000);
+        </script>
+      </section>
+
+      <!-- Pension Crisis Section -->
+      <section id="pension-crisis" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold text-center mb-12">
+            The Pension Crisis: Why Change is Needed
+          </h2>
+
+          <!-- Slideshow Container -->
+          <div class="relative max-w-4xl mx-auto">
+            <!-- Slideshow Items -->
+            <div
+              class="slideshow-container overflow-hidden rounded-xl shadow-2xl"
+            >
+              <!-- Slide 1 -->
+              <div class="slide fade">
+                <img
+                  src="/images/Screenshot 2025-03-25 at 06.01.14.png"
+                  class="w-full h-[400px] object-cover"
+                  alt="Pension Crisis News 1"
+                />
+                <div
+                  class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6"
+                >
+                  <h3 class="text-white text-2xl font-bold mb-2">
+                    Global Pension Systems Under Pressure
+                  </h3>
+                  <p class="text-gray-200 mb-2">
+                    Rising inflation and market volatility create unprecedented
+                    challenges for pension funds
+                  </p>
+                  <p class="text-blue-300 text-sm">Source: Financial Times</p>
+                </div>
+              </div>
+
+              <!-- Slide 2 -->
+              <div class="slide fade">
+                <img
+                  src="/images/Screenshot 2025-03-25 at 06.00.33.png"
+                  class="w-full h-[400px] object-cover"
+                  alt="Pension Crisis News 2"
+                />
+                <div
+                  class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6"
+                >
+                  <h3 class="text-white text-2xl font-bold mb-2">
+                    Traditional Pension Models Failing
+                  </h3>
+                  <p class="text-gray-200 mb-2">
+                    Experts warn about the sustainability of current retirement
+                    systems
+                  </p>
+                  <p class="text-blue-300 text-sm">Source: Bloomberg</p>
+            </div>
+              </div>
+
+              <!-- Slide 3 -->
+              <div class="slide fade">
+                <img
+                  src="/images/Screenshot 2025-03-25 at 06.00.09.png"
+                  class="w-full h-[400px] object-cover"
+                  alt="Pension Crisis News 3"
+                />
+                <div
+                  class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6"
+                >
+                  <h3 class="text-white text-2xl font-bold mb-2">
+                    Digital Revolution in Pensions
+                  </h3>
+                  <p class="text-gray-200 mb-2">
+                    Technology emerges as key solution to modernize pension
+                    management
+                  </p>
+                  <p class="text-blue-300 text-sm">Source: Reuters</p>
+          </div>
+        </div>
+
+              <!-- Slide 4 -->
+              <div class="slide fade">
+                <img
+                  src="/images/Screenshot 2025-03-25 at 05.59.01.png"
+                  class="w-full h-[400px] object-cover"
+                  alt="Pension Crisis News 4"
+                />
+                <div
+                  class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6"
+                >
+                  <h3 class="text-white text-2xl font-bold mb-2">
+                    Retirement Security at Risk
+                  </h3>
+                  <p class="text-gray-200 mb-2">
+                    Study shows growing gap between pension provisions and
+                    retirement needs
+                  </p>
+                  <p class="text-blue-300 text-sm">
+                    Source: The Wall Street Journal
+                  </p>
+                </div>
+              </div>
+
+              <!-- Slide 5 -->
+              <div class="slide fade">
+                <img
+                  src="/images/Screenshot 2025-03-25 at 05.58.10.png"
+                  class="w-full h-[400px] object-cover"
+                  alt="Pension Crisis News 5"
+                />
+                <div
+                  class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6"
+                >
+                  <h3 class="text-white text-2xl font-bold mb-2">
+                    Innovation in Pension Management
+                  </h3>
+                  <p class="text-gray-200 mb-2">
+                    New technologies promise to revolutionize retirement
+                    planning
+                  </p>
+                  <p class="text-blue-300 text-sm">Source: The Economist</p>
+                </div>
+              </div>
+
+              <!-- Slide 6 -->
+              <div class="slide fade">
+                <img
+                  src="/images/Screenshot 2025-03-25 at 06.02.15.png"
+                  class="w-full h-[400px] object-cover"
+                  alt="Pension Crisis News 6"
+                />
+                <div
+                  class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6"
+                >
+                  <h3 class="text-white text-2xl font-bold mb-2">
+                    Future of Retirement Planning
+                  </h3>
+                  <p class="text-gray-200 mb-2">
+                    Blockchain and AI reshape the pension industry landscape
+                  </p>
+                  <p class="text-blue-300 text-sm">Source: Forbes</p>
+                </div>
+      </div>
+
+              <!-- Navigation Arrows -->
+              <a
+                class="prev absolute top-1/2 left-4 -translate-y-1/2 cursor-pointer bg-black bg-opacity-50 text-white p-4 rounded-full hover:bg-opacity-75"
+                onclick="changeSlide(-1)"
+                >❮</a
+              >
+              <a
+                class="next absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer bg-black bg-opacity-50 text-white p-4 rounded-full hover:bg-opacity-75"
+                onclick="changeSlide(1)"
+                >❯</a
+              >
+            </div>
+
+            <!-- Dots Navigation -->
+            <div class="text-center mt-4">
+              <span
+                class="dot cursor-pointer h-3 w-3 mx-1 inline-block rounded-full bg-gray-300 hover:bg-blue-500"
+                onclick="currentSlide(1)"
+              ></span>
+              <span
+                class="dot cursor-pointer h-3 w-3 mx-1 inline-block rounded-full bg-gray-300 hover:bg-blue-500"
+                onclick="currentSlide(2)"
+              ></span>
+              <span
+                class="dot cursor-pointer h-3 w-3 mx-1 inline-block rounded-full bg-gray-300 hover:bg-blue-500"
+                onclick="currentSlide(3)"
+              ></span>
+              <span
+                class="dot cursor-pointer h-3 w-3 mx-1 inline-block rounded-full bg-gray-300 hover:bg-blue-500"
+                onclick="currentSlide(4)"
+              ></span>
+              <span
+                class="dot cursor-pointer h-3 w-3 mx-1 inline-block rounded-full bg-gray-300 hover:bg-blue-500"
+                onclick="currentSlide(5)"
+              ></span>
+              <span
+                class="dot cursor-pointer h-3 w-3 mx-1 inline-block rounded-full bg-gray-300 hover:bg-blue-500"
+                onclick="currentSlide(6)"
+              ></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add Slideshow Styles -->
+        <style>
+          .slide {
+            display: none;
+            position: relative;
+          }
+          .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+          }
+          @keyframes fade {
+            from {
+              opacity: 0.4;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+          .active-slide {
+            display: block;
+          }
+          .active-dot {
+            background-color: #3b82f6 !important;
+          }
+        </style>
+
+        <!-- Add Slideshow Script -->
+        <script>
+          let slideIndex = 1;
+          showSlides(slideIndex);
+
+          function changeSlide(n) {
+            showSlides((slideIndex += n));
+          }
+
+          function currentSlide(n) {
+            showSlides((slideIndex = n));
+          }
+
+          function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+
+            if (n > slides.length) {
+              slideIndex = 1;
+            }
+            if (n < 1) {
+              slideIndex = slides.length;
+            }
+
+            for (i = 0; i < slides.length; i++) {
+              slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+              dots[i].classList.remove("active-dot");
+            }
+
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].classList.add("active-dot");
+          }
+
+          // Auto advance slides
+          setInterval(() => {
+            changeSlide(1);
+          }, 5000);
+        </script>
+      </section>
+
+      <!-- What is Blupension Section -->
+      <section class="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="container mx-auto px-6">
+          <div class="max-w-4xl mx-auto text-center mb-12">
+            <h2 class="text-4xl font-bold text-blue-900 mb-6">
+              What is Blupension?
+            </h2>
+            <p class="text-xl text-gray-700 mb-8">
+              Blupension is a revolutionary pension management platform that
+              combines blockchain technology with traditional pension systems to
+              create a more secure, transparent, and efficient retirement
+              solution.
+            </p>
+          </div>
+
+          <!-- Technical Definition -->
+          <div class="bg-white rounded-xl shadow-lg p-8 mb-12">
+            <h3 class="text-2xl font-bold text-blue-900 mb-4">
+              Technical Definition
+            </h3>
+            <p class="text-gray-700 mb-4">
+              Blupension is a decentralized pension management protocol built on
+              blockchain technology that enables automated, transparent, and
+              secure retirement fund management. It leverages smart contracts
+              for automated contributions, AI-driven investment strategies, and
+              blockchain-based verification of transactions and fund
+              allocations.
+            </p>
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600"
+            >
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-blue-900 mb-2">
+                  Core Technologies:
+                </h4>
+                <ul class="list-disc list-inside">
+                  <li>Blockchain Infrastructure</li>
+                  <li>Smart Contracts</li>
+                  <li>AI/ML Algorithms</li>
+                  <li>Cryptographic Security</li>
+                </ul>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-blue-900 mb-2">Key Features:</h4>
+                <ul class="list-disc list-inside">
+                  <li>Automated Fund Management</li>
+                  <li>Real-time Portfolio Tracking</li>
+                  <li>Transparent Transaction History</li>
+                  <li>Cross-border Compatibility</li>
+                </ul>
+              </div>
+              </div>
+            </div>
+
+          <!-- Layman's Explanation -->
+          <div class="bg-white rounded-xl shadow-lg p-8 mb-12">
+            <h3 class="text-2xl font-bold text-blue-900 mb-4">
+              In Simple Terms
+            </h3>
+            <p class="text-gray-700 mb-4">
+              Think of Blupension as a digital piggy bank that's super secure
+              and smart. Instead of keeping your retirement money in a
+              traditional bank, it's managed through advanced technology that
+              makes sure your money is safe, visible to you at all times, and
+              working hard to grow for your future.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div
+                class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform"
+              >
+                <div
+                  class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+                >
+                  <svg
+                    class="w-6 h-6 text-blue-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-bold text-blue-900 mb-2">
+                  Secure & Transparent
+                </h3>
+                <p class="text-gray-600">
+                  Like having a bank vault with glass walls - you can see your
+                  money is safe, and no one can touch it without your
+                  permission. Every transaction is recorded and visible to you.
+                </p>
+              </div>
+
+              <div
+                class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform"
+              >
+                <div
+                  class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+                >
+                  <svg
+                    class="w-6 h-6 text-blue-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-bold text-blue-900 mb-2">
+                  Smart Investment
+                </h3>
+                <p class="text-gray-600">
+                  Like having a financial expert working 24/7 to make your money
+                  grow. The system automatically adjusts your investments based
+                  on market conditions and your goals.
+                </p>
+              </div>
+
+              <div
+                class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform"
+              >
+                <div
+                  class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+                >
+                  <svg
+                    class="w-6 h-6 text-blue-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                    </div>
+                <h3 class="text-xl font-bold text-blue-900 mb-2">
+                  Flexible Contributions
+                </h3>
+                <p class="text-gray-600">
+                  Like having a savings account that works with your schedule.
+                  You can put in money whenever you want, and the system makes
+                  sure it's invested wisely for your future.
+                </p>
+                  </div>
+                </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Investment Plans Section -->
+      <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold text-center mb-12">Investment Plans</h2>
+          <div class="grid md:grid-cols-3 gap-8">
+            <!-- Conservative Plan -->
+            <div
+              class="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer plan-card"
+              data-plan="conservative"
+              onclick="showPopup('conservativePlanPopup')"
+            >
+              <div class="bg-blue-100 p-6 text-center">
+                <h3 class="text-2xl font-bold text-blue-900">Conservative</h3>
+                <p class="text-blue-700 mt-2">Stability Focused</p>
+                    </div>
+              <div class="p-6">
+                <ul class="space-y-4">
+                  <li class="flex items-center">
+                    <svg
+                      class="w-5 h-5 text-green-500 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    <span>70% Stablecoins (USDT, USDC)</span>
+                  </li>
+                  <li class="flex items-center">
+                    <svg
+                      class="w-5 h-5 text-green-500 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    <span>20% BLU Token</span>
+                  </li>
+                  <li class="flex items-center">
+                    <svg
+                      class="w-5 h-5 text-green-500 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    <span>10% Top Market Cap Crypto</span>
+                  </li>
+                </ul>
+                <div class="mt-6">
+                  <p class="text-gray-600">
+                    Perfect for those seeking stable returns with minimal
+                    volatility
+                  </p>
+                  <div class="mt-4 bg-blue-50 p-3 rounded-lg">
+                    <p class="text-sm text-blue-800">
+                      Expected Annual Yield: 12-15%
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Moderate Plan -->
+            <div
+              class="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer plan-card"
+              data-plan="moderate"
+              onclick="showPopup('moderatePlanPopup')"
+            >
+              <div class="bg-blue-500 p-6 text-center">
+                <h3 class="text-2xl font-bold text-white">Moderate</h3>
+                <p class="text-blue-100 mt-2">Balanced Growth</p>
+              </div>
+              <div class="p-6">
+                <ul class="space-y-4">
+                  <li class="flex items-center">
+                    <svg
+                      class="w-5 h-5 text-green-500 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    <span>40% BLU Token</span>
+                  </li>
+                  <li class="flex items-center">
+                    <svg
+                      class="w-5 h-5 text-green-500 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    <span>35% Stablecoins</span>
+                  </li>
+                  <li class="flex items-center">
+                    <svg
+                      class="w-5 h-5 text-green-500 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    <span>25% High-Cap Crypto (BTC, ETH)</span>
+                  </li>
+                </ul>
+                <div class="mt-6">
+                  <p class="text-gray-600">
+                    Balanced mix of stability and growth potential
+                  </p>
+                  <div class="mt-4 bg-blue-50 p-3 rounded-lg">
+                    <p class="text-sm text-blue-800">
+                      Expected Annual Yield: 20-25%
+                    </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <!-- Aggressive Plan -->
+            <div
+              class="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer plan-card"
+              data-plan="aggressive"
+              onclick="showPopup('aggressivePlanPopup')"
+            >
+              <div class="bg-blue-900 p-6 text-center">
+                <h3 class="text-2xl font-bold text-white">Aggressive</h3>
+                <p class="text-blue-200 mt-2">Maximum Growth</p>
+              </div>
+              <div class="p-6">
+                <ul class="space-y-4">
+                  <li class="flex items-center">
+                    <svg
+                      class="w-5 h-5 text-green-500 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    <span>50% BLU Token</span>
+                  </li>
+                  <li class="flex items-center">
+                    <svg
+                      class="w-5 h-5 text-green-500 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    <span>35% High-Growth Crypto</span>
+                  </li>
+                  <li class="flex items-center">
+                    <svg
+                      class="w-5 h-5 text-green-500 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    <span>15% Stablecoins</span>
+                  </li>
+                </ul>
+                <div class="mt-6">
+                  <p class="text-gray-600">
+                    For those seeking maximum growth potential
+                  </p>
+                  <div class="mt-4 bg-blue-50 p-3 rounded-lg">
+                    <p class="text-sm text-blue-800">
+                      Expected Annual Yield: 30-40%
+                    </p>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <!-- Risk Disclosure -->
+          <div class="mt-12 max-w-2xl mx-auto text-center">
+            <p class="text-sm text-gray-600">
+              Cryptocurrency investments carry significant risks and may not be
+              suitable for all investors. Past performance is not indicative of
+              future results. The BLU token and other cryptocurrencies can be
+              highly volatile. Only invest what you can afford to lose.
+            </p>
+      </div>
+        </div>
+      </section>
+
+      <!-- Smart Pension Solutions Section -->
+      <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold text-center mb-12">
+            Smart Pension Solutions
+          </h2>
+
+          <div class="max-w-3xl mx-auto text-center mb-12">
+            <p class="text-xl text-gray-700">
+              Seamlessly integrate Blupension into your existing payroll system.
+              Whether you're an employee or freelancer, our platform adapts to
+              your needs while ensuring secure and efficient pension management.
+            </p>
+            <div class="mt-6">
+              <p class="text-gray-600">
+                Connect your bank account or mobile money wallet for automatic
+                deductions, and let our AI-powered system optimize your
+                retirement savings.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Business Solution -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+              <div class="relative h-48">
+                <img
+                  src="/images/employess.jpg"
+                  alt="Business Integration"
+                  class="w-full h-full object-cover"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-blue-900 to-transparent"
+                ></div>
+                <h3
+                  class="absolute bottom-4 left-4 text-2xl font-bold text-white"
+                >
+                  Business Integration
+                </h3>
+              </div>
+              <div class="p-6">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <h4 class="font-semibold mb-2">Automatic Payroll</h4>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-center">
+                        <svg
+                          class="w-5 h-5 text-green-500 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                        Direct integration
+                      </li>
+                      <li class="flex items-center">
+                        <svg
+                          class="w-5 h-5 text-green-500 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                        Bulk enrollment
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold mb-2">Employee Benefits</h4>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-center">
+                        <svg
+                          class="w-5 h-5 text-green-500 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                        Personal portfolios
+                      </li>
+                      <li class="flex items-center">
+                        <svg
+                          class="w-5 h-5 text-green-500 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                        Real-time tracking
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6 border-t">
+                <div class="flex justify-center space-x-4">
+                  <a
+                    href="/employees"
+                    class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Learn More
+                  </a>
+                  <a
+                    href="/register"
+                    class="bg-white text-blue-600 border-2 border-blue-600 px-6 py-2 rounded-lg hover:bg-blue-50 transition-colors"
+                  >
+                    Get Started
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Freelancer Solution -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+              <div class="relative h-48">
+                <img
+                  src="/images/freelancers.jpg"
+                  alt="Freelancer Freedom"
+                  class="w-full h-full object-cover"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-blue-900 to-transparent"
+                ></div>
+                <h3
+                  class="absolute bottom-4 left-4 text-2xl font-bold text-white"
+                >
+                  Freelancer Freedom
+                </h3>
+              </div>
+              <div class="p-6">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <h4 class="font-semibold mb-2">Smart Contributions</h4>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-center">
+                        <svg
+                          class="w-5 h-5 text-green-500 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                        Flexible payments
+                      </li>
+                      <li class="flex items-center">
+                        <svg
+                          class="w-5 h-5 text-green-500 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                        Auto-deductions
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold mb-2">Smart Features</h4>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-center">
+                        <svg
+                          class="w-5 h-5 text-green-500 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                        Invoice integration
+                      </li>
+                      <li class="flex items-center">
+                        <svg
+                          class="w-5 h-5 text-green-500 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                        Tax optimization
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6 border-t">
+                <div class="flex justify-center space-x-4">
+                  <a
+                    href="/freelancers"
+                    class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Learn More
+                  </a>
+                  <a
+                    href="/register"
+                    class="bg-white text-blue-600 border-2 border-blue-600 px-6 py-2 rounded-lg hover:bg-blue-50 transition-colors"
+                  >
+                    Get Started
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hidden Costs Section -->
+      <section
+        class="py-20 bg-gradient-to-br from-blue-900 to-indigo-900 text-white"
+      >
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-6">
+              The Hidden Cost of Traditional Pension Plans
+            </h2>
+            <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+              Discover how Blupension saves you money and protects your
+              retirement savings from traditional pension pitfalls.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            <!-- Currency Devaluation Card -->
+            <div
+              class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 hover:bg-opacity-20 transition-all duration-300"
+            >
+              <div class="text-blue-400 mb-4">
+                <svg
+                  class="w-12 h-12"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4">Currency Devaluation</h3>
+              <div class="space-y-4">
+                <div class="bg-white bg-opacity-5 rounded-lg p-4">
+                  <p class="text-sm text-blue-200">Traditional Plans:</p>
+                  <p class="text-2xl font-bold text-red-400">
+                    20% Average Loss
+                  </p>
+                  <p class="text-sm text-blue-200">
+                    Due to currency devaluation over 5 years
+                  </p>
+                </div>
+                <div class="bg-white bg-opacity-5 rounded-lg p-4">
+                  <p class="text-sm text-blue-200">With Blupension:</p>
+                  <p class="text-2xl font-bold text-green-400">
+                    Protected Value
+                  </p>
+                  <p class="text-sm text-blue-200">
+                    Our stablecoin integration preserves your savings
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Inflation Impact Card -->
+            <div
+              class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 hover:bg-opacity-20 transition-all duration-300"
+            >
+              <div class="text-blue-400 mb-4">
+                <svg
+                  class="w-12 h-12"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4">Inflation Impact</h3>
+              <div class="space-y-4">
+                <div class="bg-white bg-opacity-5 rounded-lg p-4">
+                  <p class="text-sm text-blue-200">Traditional Plans:</p>
+                  <p class="text-2xl font-bold text-red-400">-8% Annual</p>
+                  <p class="text-sm text-blue-200">Loss in purchasing power</p>
+                </div>
+                <div class="bg-white bg-opacity-5 rounded-lg p-4">
+                  <p class="text-sm text-blue-200">With Blupension:</p>
+                  <p class="text-2xl font-bold text-green-400">+2% Annual</p>
+                  <p class="text-sm text-blue-200">
+                    Real returns above inflation
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Management Fees Card -->
+            <div
+              class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 hover:bg-opacity-20 transition-all duration-300"
+            >
+              <div class="text-blue-400 mb-4">
+                <svg
+                  class="w-12 h-12"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4">Management Fees</h3>
+              <div class="space-y-4">
+                <div class="bg-white bg-opacity-5 rounded-lg p-4">
+                  <p class="text-sm text-blue-200">Traditional Plans:</p>
+                  <p class="text-2xl font-bold text-red-400">2.5% Annual</p>
+                  <p class="text-sm text-blue-200">High management fees</p>
+                </div>
+                <div class="bg-white bg-opacity-5 rounded-lg p-4">
+                  <p class="text-sm text-blue-200">With Blupension:</p>
+                  <p class="text-2xl font-bold text-green-400">0.1% Flat</p>
+                  <p class="text-sm text-blue-200">Save $50K+ over 30 years</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Savings Summary -->
+          <div
+            class="mt-12 bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 text-center"
+          >
+            <h3 class="text-2xl font-bold mb-6">
+              Your Total Savings with Blupension
+            </h3>
+            <div class="grid md:grid-cols-3 gap-8">
+              <div>
+                <p class="text-4xl font-bold text-green-400">35%</p>
+                <p class="text-blue-200">Higher Returns</p>
+              </div>
+              <div>
+                <p class="text-4xl font-bold text-green-400">96%</p>
+                <p class="text-blue-200">Lower Fees</p>
+              </div>
+              <div>
+                <p class="text-4xl font-bold text-green-400">$50K+</p>
+                <p class="text-blue-200">Extra Savings</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-blue-900 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+          <h2 class="text-3xl font-bold mb-8">Ready to Secure Your Future?</h2>
+          <p class="text-xl mb-8">
+            Join thousands of users who have already taken control of their
+            retirement planning.
+          </p>
+          <a
+            href="/register"
+            class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 inline-block"
+            >Get Started Now</a
+          >
+              </div>
+      </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-12">
+      <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-4 gap-8">
+          <div>
+            <h3 class="text-lg font-bold mb-4">Blupension</h3>
+            <p class="text-gray-400">
+              Revolutionizing pension management for a secure future.
+            </p>
+            <div class="mt-4">
+              <p class="text-gray-400 text-sm mb-4">
+                USA Office:<br />
+                1209 North Orange Street<br />
+                Wilmington, Delaware 19801<br />
+                United States
+              </p>
+              <p class="text-gray-400 text-sm">
+                Kenya Office:<br />
+                Riverside Drive, Westlands<br />
+                Nairobi, 00100<br />
+                Kenya
+              </p>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Investment Plans</h4>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >Conservative Plan</a
+                >
+                </li>
+                <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >Moderate Plan</a
+                >
+                </li>
+                <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >Aggressive Plan</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >Custom Solutions</a
+                >
+                </li>
+              </ul>
+            </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Legal & Resources</h4>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >Terms of Service</a
+                >
+                </li>
+                <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >Privacy Policy</a
+                >
+                </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white">Security</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white"
+                  >Compliance</a
+                >
+                </li>
+              </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Contact</h4>
+            <ul class="space-y-2">
+              <li class="text-gray-400">Email: info@blupension.com</li>
+              <li class="text-gray-400">Support: +1 (302) 555-0123</li>
+              <li class="text-gray-400">Sales: +1 (302) 555-0124</li>
+              <li class="text-gray-400">Fax: +1 (302) 555-0125</li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="text-gray-400 text-sm">
+              <p>&copy; 2024 Blupension Inc. All rights reserved.</p>
+              <p>
+                Registered in Delaware, United States & Licensed in Kenya<br />
+                US Company Number: DE 12345 | Kenya Reg: PVT-XXXXXXX
+              </p>
+            </div>
+            <div class="text-gray-400 text-sm md:text-right">
+              <p>
+                Licensed by SEC (USA) & Retirement Benefits Authority (Kenya)
+              </p>
+              <p>Member FDIC, SIPC & RBA</p>
+              <!-- Social Media Links -->
+              <div class="flex justify-end space-x-4 mt-4">
+                <a
+                  href="https://www.linkedin.com/company/blupension"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  aria-label="Follow us on LinkedIn"
+                >
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://x.com/blupension"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-gray-400 hover:text-blue-400 transition-colors"
+                  aria-label="Follow us on X (Twitter)"
+                >
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                    />
+                  </svg>
+              </a>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Investment Plan Popups -->
+    <div
+      id="conservativePlanPopup"
+      class="plan-popup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="conservativePlanTitle"
+    >
+      <div class="plan-popup-content">
+        <button
+          class="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          onclick="closePopup('conservativePlanPopup')"
+          aria-label="Close conservative plan popup"
+          title="Close"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <img
+          src="/images/conservative.jpg"
+          alt="Conservative Plan"
+          class="w-full h-48 object-cover rounded-lg mb-4"
+        />
+        <h3 id="conservativePlanTitle" class="text-2xl font-bold mb-4">
+          Conservative Plan Details
+        </h3>
+        <div class="space-y-6">
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-blue-900 mb-2">Perfect For:</h4>
+            <ul class="list-disc list-inside text-gray-700">
+              <li>Individuals nearing retirement</li>
+              <li>Risk-averse investors</li>
+              <li>Those seeking stable returns</li>
+              <li>First-time crypto investors</li>
+            </ul>
+              </div>
+
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-gray-900 mb-2">
+              Investment Example:
+            </h4>
+            <p class="text-gray-700">If you invest $100 monthly:</p>
+            <div class="mt-2 space-y-2">
+              <div class="flex justify-between">
+                <span>Monthly Contribution:</span>
+                <span class="font-semibold">$100</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Annual Contribution:</span>
+                <span class="font-semibold">$1,200</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Expected Annual Return:</span>
+                <span class="font-semibold text-green-600">12-15%</span>
+              </div>
+              <div class="flex justify-between">
+                <span>After 30 Years:</span>
+                <span class="font-semibold text-green-600"
+                  >$180,000 - $220,000</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-blue-900 mb-2">
+              Retirement Lifestyle Options:
+            </h4>
+            <ul class="list-disc list-inside text-gray-700">
+              <li>Modest home in a retirement community</li>
+              <li>Regular travel within budget</li>
+              <li>Healthcare coverage</li>
+              <li>Leisure activities and hobbies</li>
+              </ul>
+          </div>
+
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-gray-900 mb-2">Risk Management:</h4>
+            <ul class="list-disc list-inside text-gray-700">
+              <li>70% in stablecoins for capital preservation</li>
+              <li>20% in BLU token for platform benefits</li>
+              <li>10% in top market cap crypto for growth</li>
+              <li>Regular portfolio rebalancing</li>
+            </ul>
+            </div>
+          </div>
+      </div>
+        </div>
+
+    <div
+      id="moderatePlanPopup"
+      class="plan-popup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="moderatePlanTitle"
+    >
+      <div class="plan-popup-content">
+        <button
+          class="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          onclick="closePopup('moderatePlanPopup')"
+          aria-label="Close moderate plan popup"
+          title="Close"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <img
+          src="/images/moderate.jpg"
+          alt="Moderate Plan"
+          class="w-full h-48 object-cover rounded-lg mb-4"
+        />
+        <h3 id="moderatePlanTitle" class="text-2xl font-bold mb-4">
+          Moderate Plan Details
+        </h3>
+        <div class="space-y-6">
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-blue-900 mb-2">Perfect For:</h4>
+            <ul class="list-disc list-inside text-gray-700">
+              <li>Mid-career professionals</li>
+              <li>Balanced risk-takers</li>
+              <li>Those with 10+ years until retirement</li>
+              <li>Investors seeking growth with stability</li>
+            </ul>
+      </div>
+
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-gray-900 mb-2">
+              Investment Example:
+            </h4>
+            <p class="text-gray-700">If you invest $100 monthly:</p>
+            <div class="mt-2 space-y-2">
+              <div class="flex justify-between">
+                <span>Monthly Contribution:</span>
+                <span class="font-semibold">$100</span>
+          </div>
+              <div class="flex justify-between">
+                <span>Annual Contribution:</span>
+                <span class="font-semibold">$1,200</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Expected Annual Return:</span>
+                <span class="font-semibold text-green-600">20-25%</span>
+              </div>
+              <div class="flex justify-between">
+                <span>After 30 Years:</span>
+                <span class="font-semibold text-green-600"
+                  >$350,000 - $450,000</span
+                >
+              </div>
+          </div>
+        </div>
+
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-blue-900 mb-2">
+              Retirement Lifestyle Options:
+            </h4>
+            <ul class="list-disc list-inside text-gray-700">
+              <li>Comfortable home in desired location</li>
+              <li>International travel opportunities</li>
+              <li>Premium healthcare coverage</li>
+              <li>Active lifestyle and hobbies</li>
+              <li>Support for family needs</li>
+          </ul>
+        </div>
+
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-gray-900 mb-2">Risk Management:</h4>
+            <ul class="list-disc list-inside text-gray-700">
+              <li>40% in BLU token for platform benefits</li>
+              <li>35% in stablecoins for stability</li>
+              <li>25% in high-cap crypto for growth</li>
+              <li>Quarterly portfolio rebalancing</li>
+              <li>Market trend analysis and adjustments</li>
+          </ul>
+          </div>
+        </div>
+      </div>
+        </div>
+
+    <div
+      id="aggressivePlanPopup"
+      class="plan-popup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="aggressivePlanTitle"
+    >
+      <div class="plan-popup-content">
+        <button
+          class="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          onclick="closePopup('aggressivePlanPopup')"
+          aria-label="Close aggressive plan popup"
+          title="Close"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <img
+          src="/images/agressive.jpg"
+          alt="Aggressive Plan"
+          class="w-full h-48 object-cover rounded-lg mb-4"
+        />
+        <h3 id="aggressivePlanTitle" class="text-2xl font-bold mb-4">
+          Aggressive Plan Details
+        </h3>
+        <div class="space-y-6">
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-blue-900 mb-2">Perfect For:</h4>
+            <ul class="list-disc list-inside text-gray-700">
+              <li>Young professionals (25-35 years)</li>
+              <li>High-risk tolerance investors</li>
+              <li>Those with 20+ years until retirement</li>
+              <li>Experienced crypto investors</li>
+          </ul>
+        </div>
+
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-gray-900 mb-2">
+              Investment Example:
+            </h4>
+            <p class="text-gray-700">If you invest $100 monthly:</p>
+            <div class="mt-2 space-y-2">
+              <div class="flex justify-between">
+                <span>Monthly Contribution:</span>
+                <span class="font-semibold">$100</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Annual Contribution:</span>
+                <span class="font-semibold">$1,200</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Expected Annual Return:</span>
+                <span class="font-semibold text-green-600">30-40%</span>
+              </div>
+              <div class="flex justify-between">
+                <span>After 30 Years:</span>
+                <span class="font-semibold text-green-600"
+                  >$800,000 - $1,200,000</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-blue-900 mb-2">
+              Retirement Lifestyle Options:
+            </h4>
+            <ul class="list-disc list-inside text-gray-700">
+              <li>Luxury home in prime location</li>
+              <li>Extensive international travel</li>
+              <li>Comprehensive healthcare coverage</li>
+              <li>Multiple investment properties</li>
+              <li>Generational wealth building</li>
+              <li>Philanthropic opportunities</li>
+          </ul>
+        </div>
+
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-gray-900 mb-2">Risk Management:</h4>
+            <ul class="list-disc list-inside text-gray-700">
+              <li>50% in BLU token for maximum platform benefits</li>
+              <li>35% in high-growth crypto for aggressive growth</li>
+              <li>15% in stablecoins for emergency funds</li>
+              <li>Monthly portfolio rebalancing</li>
+              <li>Active market monitoring and strategy adjustments</li>
+              <li>Diversification across emerging crypto sectors</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Thought Bubble Animation
+      let currentBubble = 1;
+      const totalBubbles = 3;
+
+      function showThoughtBubble() {
+        const thoughts = [
+            "Processing...",
+            "Calculating...",
+            "Optimizing...",
+            "Planning..."
+        ];
+        
+        const chatWidget = document.querySelector(".chat-widget");
+        if (chatWidget) {
+        const bubble = document.createElement("div");
+        bubble.className = "thought-bubble";
+        bubble.textContent = thoughts[Math.floor(Math.random() * thoughts.length)];
+            chatWidget.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 3000);
+        }
+      }
+
+      // Start thought bubble cycle
+      showThoughtBubble();
+      setInterval(showThoughtBubble, 4000);
+
+      // Investment Plan Popup Functions
+      function showPopup(popupId) {
+        const popup = document.getElementById(popupId);
+        if (popup) {
+          popup.style.opacity = "1";
+          popup.style.pointerEvents = "auto";
+          const content = popup.querySelector(".plan-popup-content");
+          if (content) {
+            content.style.transform = "scale(1)";
+          }
+          document.body.style.overflow = "hidden";
+        }
+      }
+
+      function closePopup(popupId) {
+        const popup = document.getElementById(popupId);
+        if (popup) {
+          popup.style.opacity = "0";
+          popup.style.pointerEvents = "none";
+          const content = popup.querySelector(".plan-popup-content");
+          if (content) {
+            content.style.transform = "scale(0.9)";
+          }
+          document.body.style.overflow = "auto";
+        }
+      }
+
+      // Close popup when clicking outside
+      document.querySelectorAll(".plan-popup").forEach((popup) => {
+        popup.addEventListener("click", (e) => {
+          if (e.target === popup) {
+            closePopup(popup.id);
+          }
+        });
+      });
+
+      // Close popup when pressing Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          document.querySelectorAll(".plan-popup").forEach((popup) => {
+            if (popup.style.opacity === "1") {
+              closePopup(popup.id);
+            }
+          });
+        }
+      });
+
+      // Hidden Cost Hover Effects
+      document.querySelectorAll(".cost-card").forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+          const popup = card.querySelector(".cost-popup");
+          if (popup) {
+            popup.style.transform = "translateX(-50%) scale(1)";
+            popup.style.opacity = "1";
+          }
+        });
+
+        card.addEventListener("mouseleave", () => {
+          const popup = card.querySelector(".cost-popup");
+          if (popup) {
+            popup.style.transform = "translateX(-50%) scale(0)";
+            popup.style.opacity = "0";
+          }
+        });
+      });
+
+      // Chatbot Functions
+      function toggleChatbot() {
+        const window = document.getElementById("chatbotWindow");
+        window.classList.toggle("active");
+      }
+
+      function handleKeyPress(event) {
+        if (event.key === "Enter") {
+          handleUserInput();
+        }
+      }
+
+      function handleUserInput() {
+        const input = document.getElementById("userInput");
+        const message = input.value.trim();
+        if (message) {
+          addMessage(message, "user");
+          input.value = "";
+          // Add bot response logic here
+          setTimeout(() => {
+            addMessage(
+              "I understand you're interested in Blupension. Would you like to know more about our investment plans or how to get started?",
+              "bot",
+            );
+          }, 1000);
+        }
+      }
+
+      function addMessage(text, type) {
+        const messages = document.getElementById("chatbotMessages");
+        const message = document.createElement("div");
+        message.className = `message ${type}`;
+        message.textContent = text;
+        messages.appendChild(message);
+        messages.scrollTop = messages.scrollHeight;
+      }
+    </script>
+
+    <!-- AI Chatbot -->
+    <div class="chat-widget">
+      <button id="chatToggle" class="chatbot-button" aria-label="Open chat">
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+          ></path>
+        </svg>
+        <div class="notification-dot"></div>
+      </button>
+      <div class="chatbot-window">
+        <div class="chatbot-header">
+          <div class="chatbot-profile">
+            <div class="chatbot-avatar">
+              <svg
+                class="w-6 h-6 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="chatbot-name">Blupension AI</div>
+              <div class="chatbot-status">Online</div>
+            </div>
+          </div>
+          <button id="closeChat" class="text-white hover:text-blue-100 transition-colors" aria-label="Close chat">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages"></div>
+        <div class="chatbot-input">
+          <input
+            type="text"
+            id="messageInput"
+            placeholder="Type your message..."
+          />
+          <button id="sendMessage" aria-label="Send message">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const botResponses = {
+        greetings: [
+          "Hello! I'm your Blupension AI assistant. How can I help you today?",
+          "Hi there! I'm here to help you with any questions about Blupension.",
+          "Welcome! What would you like to know about Blupension?",
+        ],
+        contributions: [
+          "You can contribute to your Blupension account through our secure platform. We accept various payment methods and offer flexible contribution options.",
+          "Contributions to Blupension are easy and secure. You can set up automatic contributions or make one-time payments.",
+          "We offer multiple ways to contribute to your pension fund. Would you like to know more about our contribution options?",
+        ],
+        investments: [
+          "Blupension invests your funds in a diversified portfolio of assets to maximize returns while managing risk.",
+          "Our investment strategy focuses on long-term growth through a balanced mix of assets.",
+          "We use advanced algorithms to optimize your investment portfolio based on your risk profile and retirement goals.",
+        ],
+        retirement: [
+          "With Blupension, you can start planning for retirement early. Our platform helps you track your progress and adjust your strategy as needed.",
+          "Retirement planning is crucial, and Blupension makes it easy. We provide tools and insights to help you achieve your retirement goals.",
+          "You can access your retirement funds through Blupension's flexible withdrawal options when you reach retirement age.",
+        ],
+        security: [
+          "Blupension uses industry-standard security measures to protect your account and personal information.",
+          "Your data and funds are protected with advanced encryption and security protocols.",
+          "We take security seriously and regularly update our systems to ensure your information is safe.",
+        ],
+        fees: [
+          "Blupension charges competitive fees for managing your pension fund. We're transparent about all costs.",
+          "Our fee structure is designed to be fair and competitive, helping you maximize your retirement savings.",
+          "We offer low management fees compared to traditional pension plans, helping you save more for retirement.",
+        ],
+      };
+
+      function initializeChat() {
+        const chatToggle = document.getElementById("chatToggle");
+        const chatWindow = document.querySelector(".chatbot-window");
+        const closeChat = document.getElementById("closeChat");
+        const messageInput = document.getElementById("messageInput");
+        const sendMessage = document.getElementById("sendMessage");
+        const chatMessages = document.getElementById("chatMessages");
+
+        function showThinking() {
+          const thinkingDiv = document.createElement("div");
+          thinkingDiv.className = "thinking";
+          thinkingDiv.innerHTML = `
+            <div class="thinking-dot"></div>
+            <div class="thinking-dot"></div>
+            <div class="thinking-dot"></div>
+          `;
+          chatMessages.appendChild(thinkingDiv);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          return thinkingDiv;
+        }
+
+        function addMessage(message, isUser = false) {
+          const messageDiv = document.createElement("div");
+          messageDiv.className = `message ${isUser ? "user" : "bot"}`;
+          messageDiv.textContent = message;
+          chatMessages.appendChild(messageDiv);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleUserInput() {
+          const message = messageInput.value.trim();
+          if (!message) return;
+
+          addMessage(message, true);
+          messageInput.value = "";
+
+          // Show thinking animation
+          const thinkingDiv = showThinking();
+
+          // Simple response logic based on keywords
+          const lowerMessage = message.toLowerCase();
+          let response;
+
+          if (lowerMessage.includes("hello") || lowerMessage.includes("hi")) {
+            response =
+              botResponses.greetings[
+                Math.floor(Math.random() * botResponses.greetings.length)
+              ];
+          } else if (
+            lowerMessage.includes("contribute") ||
+            lowerMessage.includes("payment")
+          ) {
+            response =
+              botResponses.contributions[
+                Math.floor(Math.random() * botResponses.contributions.length)
+              ];
+          } else if (
+            lowerMessage.includes("invest") ||
+            lowerMessage.includes("portfolio")
+          ) {
+            response =
+              botResponses.investments[
+                Math.floor(Math.random() * botResponses.investments.length)
+              ];
+          } else if (
+            lowerMessage.includes("retire") ||
+            lowerMessage.includes("pension")
+          ) {
+            response =
+              botResponses.retirement[
+                Math.floor(Math.random() * botResponses.retirement.length)
+              ];
+          } else if (
+            lowerMessage.includes("secure") ||
+            lowerMessage.includes("safe")
+          ) {
+            response =
+              botResponses.security[
+                Math.floor(Math.random() * botResponses.security.length)
+              ];
+          } else if (
+            lowerMessage.includes("fee") ||
+            lowerMessage.includes("cost")
+          ) {
+            response =
+              botResponses.fees[
+                Math.floor(Math.random() * botResponses.fees.length)
+              ];
+          } else {
+            response =
+              "I'm not sure about that. Could you please rephrase your question? I can help you with information about contributions, investments, retirement planning, security, and fees.";
+          }
+
+          // Remove thinking animation and show response after delay
+          setTimeout(() => {
+            thinkingDiv.remove();
+            addMessage(response);
+          }, 1500);
+        }
+
+        chatToggle.addEventListener("click", () => {
+          chatWindow.classList.add("active");
+          // Remove notification dot when chat is opened
+          const notificationDot = chatToggle.querySelector(".notification-dot");
+          if (notificationDot) {
+            notificationDot.style.display = "none";
+          }
+        });
+
+        closeChat.addEventListener("click", () => {
+          chatWindow.classList.remove("active");
+        });
+
+        sendMessage.addEventListener("click", handleUserInput);
+        messageInput.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") handleUserInput();
+        });
+
+        // Show initial greeting
+        setTimeout(() => {
+          addMessage(botResponses.greetings[0]);
+        }, 500);
+      }
+
+      // Initialize chat when the page loads
+      document.addEventListener("DOMContentLoaded", initializeChat);
+    </script>
+
+    <!-- Vendor JS Files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" type="module"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js" type="module"></script>
+
+    <!-- Main JS File -->
+    <script src="assets/js/main.js" type="module"></script>
+  </body>
+</html>

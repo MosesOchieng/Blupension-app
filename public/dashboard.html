@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Blupension</title>
+    <!-- Load React app styles -->
+    <link rel="stylesheet" href="/assets/index-CJkVhuZ2.css" />
+    <style>
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 0.8;
+        }
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: -1000px 0;
+        }
+        100% {
+          background-position: 1000px 0;
+        }
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .welcome-screen {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        transition: opacity 0.5s ease;
+      }
+
+      .logo-pulse {
+        animation: pulse 2s infinite ease-in-out;
+      }
+
+      .loading-bar {
+        height: 4px;
+        background: linear-gradient(
+          to right,
+          rgba(59, 130, 246, 0.2),
+          rgba(59, 130, 246, 0.8),
+          rgba(59, 130, 246, 0.2)
+        );
+        background-size: 1000px 100%;
+        animation: shimmer 3s infinite linear;
+      }
+
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(59, 130, 246, 0.3);
+        border-top-color: #3b82f6;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loading-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: white;
+      }
+
+      .welcome-screen {
+        display: none;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .welcome-content {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .welcome-image {
+        width: 300px;
+        height: 300px;
+        object-fit: contain;
+        margin: 2rem auto;
+      }
+
+      .welcome-title {
+        font-size: 2rem;
+        color: #1e3a8a;
+        margin-bottom: 1rem;
+      }
+
+      .welcome-text {
+        color: #4b5563;
+        margin-bottom: 2rem;
+      }
+
+      .loading-text {
+        color: #4b5563;
+        margin-top: 1rem;
+        font-size: 1.1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="loading-screen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Your Blupension dashboard is loading...</div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
